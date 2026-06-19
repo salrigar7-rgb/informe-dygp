@@ -220,7 +220,7 @@ hr.divider{border:none;border-top:1px solid var(--gris2);margin:1.8rem 0;}
 </style>
 </head>
 <body>
-
+ 
 <nav>
   <div class="nav-brand">DyGP <span>·</span> Informe Estratégico</div>
   <button class="tab-btn active" onclick="switchTab('inicio')">Inicio</button>
@@ -279,14 +279,14 @@ hr.divider{border:none;border-top:1px solid var(--gris2);margin:1.8rem 0;}
     </div>
   </div>
 </div>
-
+ 
 <!-- ═══ CSC ═══ -->
 <div id="tab-csc" class="tab-panel">
   <div class="content">
     <p class="section-title">CSC: ¿Central o Negocio?</p>
     <p class="section-sub">Dos posiciones sobre la dependencia jerárquica del Centro de Servicios Compartidos</p>
     <div class="callout azul"><strong>Contexto</strong>La reorganización de DyGP abre una pregunta de diseño que no tiene una respuesta única en la literatura de gestión: ¿debe el Centro de Servicios Compartidos (CSC) depender jerárquicamente de la Dirección de Personas (Central), o debe depender del negocio al que sirve? Ambas son arquitecturas válidas y ambas se usan en organizaciones comparables. Este apartado desarrolla las dos posiciones con el mismo nivel de detalle.</div>
-
+ 
     <div class="cards-2">
       <div class="card" style="border-left:4px solid var(--azul-m)">
         <div class="card-title" style="color:var(--azul-m)">Posición A — El CSC depende de Central</div>
@@ -297,7 +297,7 @@ hr.divider{border:none;border-top:1px solid var(--gris2);margin:1.8rem 0;}
         <div class="card-body">El argumento de fondo es la proximidad: quien convive con la operativa diaria de la planta es quien mejor puede priorizar, contextualizar y resolver con rapidez. Es la posición que defienden los Gestores de Negocio, que son quienes en última instancia responden ante la Dirección General por el funcionamiento de su área.</div>
       </div>
     </div>
-
+ 
     <hr class="divider">
     <p class="section-title" style="font-size:1.2rem">Posición A — Argumentos a favor de la dependencia de Central</p>
     <div class="pc-grid">
@@ -316,7 +316,7 @@ hr.divider{border:none;border-top:1px solid var(--gris2);margin:1.8rem 0;}
         <li>Depende de que se construyan SLA y canales de escalado adicionales — una capa de gestión que no haría falta si la dependencia fuera directa.</li>
       </ul></div>
     </div>
-
+ 
     <hr class="divider">
     <p class="section-title" style="font-size:1.2rem">Posición B — Argumentos a favor de la dependencia del Negocio</p>
     <div class="pc-grid">
@@ -335,7 +335,7 @@ hr.divider{border:none;border-top:1px solid var(--gris2);margin:1.8rem 0;}
         <li>Requiere una función de auditoría y estandarización transversal para evitar que la descentralización derive en cinco modelos distintos de gestión de personas.</li>
       </ul></div>
     </div>
-
+ 
     <hr class="divider">
     <p class="section-title" style="font-size:1.2rem">Lectura conjunta</p>
     <p class="section-sub" style="margin-bottom:1rem">Ambas posiciones resuelven problemas reales y generan riesgos reales. La diferencia no es de rigor técnico sino de qué riesgo se prioriza gestionar.</p>
@@ -575,7 +575,7 @@ hr.divider{border:none;border-top:1px solid var(--gris2);margin:1.8rem 0;}
     </tbody></table></div>
   </div>
 </div>
-
+ 
 <!-- ═══ IT-DyGP ═══ -->
 <div id="tab-it" class="tab-panel">
   <div class="content">
@@ -704,7 +704,7 @@ hr.divider{border:none;border-top:1px solid var(--gris2);margin:1.8rem 0;}
     </div>
   </div>
 </div>
-
+ 
 <!-- ═══ SÍNTESIS ═══ -->
 <div id="tab-sintesis" class="tab-panel">
   <div class="content">
@@ -766,7 +766,7 @@ hr.divider{border:none;border-top:1px solid var(--gris2);margin:1.8rem 0;}
     <div class="callout azul" style="margin-top:1rem"><strong>Conclusión</strong>«El modelo centralizado no es una opción ideológica: es la única que permite convertir la función de personas en una palanca estratégica al servicio del crecimiento del Grupo.» — Grup Vall Companys · DyGP · Junio 2026</div>
   </div>
 </div>
-
+ 
 <script>
 // ── TAB SWITCHING ────────────────────────────────────────────────
 function switchTab(id) {
@@ -777,7 +777,7 @@ function switchTab(id) {
     if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
   });
 }
-
+ 
 // ── CSC SCORE ────────────────────────────────────────────────────
 const SCORES_CSC = [
   ["Velocidad de respuesta a incidencias de planta","Negocio","hi","La prioridad la fija quien sufre la incidencia, no una cola compartida entre cinco áreas."],
@@ -799,12 +799,12 @@ const SCORES_CSC = [
     tb.appendChild(tr);
   });
 })();
-
+ 
 // ── TAREAS DATA ───────────────────────────────────────────────────
 // Columnas: Central | Gestor Negocio (BP) | CSC | Planta
 // Fuentes reconciliadas: criterio unificado tarea a tarea
 const TAREAS = [
-
+ 
   // ── ADMINISTRACIÓN DE PERSONAL Y SS
   ["ADMINISTRACIÓN DE PERSONAL Y SS","Gestión de altas/bajas en TGSS y mutua (AFI, TA1/TA2)","—","—","R","C","Planta comunica la necesidad; CSC ejecuta la afiliación en sistema"],
   ["","Liquidación de cuotas SS y gestión de errores SILTRA","—","—","R","—","CSC íntegramente. Responsabilidad legal ante TGSS."],
@@ -822,7 +822,7 @@ const TAREAS = [
   ["","Alta de empleado en sistema (contrato, firma digital)","R","R","C","C","Central define protocolos; Gestor Negocio solicita el alta; CSC ejecuta en SEPE; Planta firma presencialmente"],
   ["","SLD - CRETA (comunicaciones a SEPE)","—","—","R","—","CSC ejecuta las comunicaciones legales al SEPE íntegramente"],
   ["","Contabilidad: TXT, libro contable de personal","R","—","C","—","Central aprueba; CSC genera los ficheros de contabilidad analítica"],
-
+ 
   // ── NÓMINA Y RETRIBUCIÓN
   ["NÓMINA Y RETRIBUCIÓN","Cierre de nómina mensual, conciliación y fichero SEPA","C","—","R","C","CSC calcula y cierra; Planta comunica incidencias del mes; Central supervisa"],
   ["","Cálculo de nómina: conceptos, retros y retroactivos","—","—","R","—","CSC íntegramente. Proceso auditado y centralizado."],
@@ -834,7 +834,7 @@ const TAREAS = [
   ["","IRPF: regularización, modelo 190 y declaración anual","R","—","C","—","Central aprueba los criterios; CSC ejecuta la declaración. Impacto legal y reputacional."],
   ["","Asientos contables de personal","R","—","C","—","CSC genera los asientos; Central supervisa el impacto en resultados. Indelegable."],
   ["","Gestión de pagos en especie","—","R","R","—","Gestor Negocio valida el beneficio; CSC gestiona, declara y aplica en nómina"],
-
+ 
   // ── CONTRATOS Y RELACIONES LABORALES
   ["CONTRATOS Y RELACIONES LABORALES","Contratación: alta SEPE, firma y comunicaciones legales","—","R","C","R","Gestor Negocio solicita y supervisa; CSC registra en SEPE; Planta ejecuta la firma presencial"],
   ["","Prórrogas, conversiones de contrato y teletrabajo","—","R","C","R","Gestor Negocio valida la decisión; CSC formaliza en sistema; Planta propone y firma"],
@@ -857,7 +857,7 @@ const TAREAS = [
   ["","Documentación para subvenciones de empleo","R","C","C","—","Central lidera; Gestor Negocio aporta datos del área; CSC recopila y tramita"],
   ["","EINF, SEDEX, sostenibilidad y reporting no financiero","R","R","—","—","Central elabora; Gestor Negocio aporta los datos e indicadores de su área"],
   ["","Auditorías financieras y laborales","R","R","C","—","Central coordina; Gestor Negocio aporta documentación del área; CSC prepara los ficheros"],
-
+ 
   // ── SELECCIÓN Y ONBOARDING
   ["SELECCIÓN Y ONBOARDING","Negociación de acuerdos marco con ETTs y consultoras","R","R","—","—","Central lidera la negociación global; Gestor Negocio valida las necesidades de su área"],
   ["","Employer branding y propuesta de valor al empleado (PVE)","R","R","—","—","Central diseña y mantiene la PVE corporativa; Gestor Negocio la activa y comunica en cada unidad"],
@@ -872,7 +872,7 @@ const TAREAS = [
   ["","Pack de bienvenida y protocolo de acogida","R","R","—","C","Central estandariza el contenido; Gestor Negocio adapta al contexto; Planta entrega y ejecuta"],
   ["","Seguimiento del período de prueba","—","R","—","C","Gestor Negocio hace el seguimiento con el manager; Planta informa de la evolución diaria"],
   ["","Diseño y ejecución de entrevistas de salida","R","R","—","C","Central diseña el proceso; Gestor Negocio lo activa y analiza resultados; Planta ejecuta la entrevista"],
-
+ 
   // ── FORMACIÓN Y DESARROLLO
   ["FORMACIÓN Y DESARROLLO","Preparación del Plan Formativo Anual (DNC y calendario)","R","R","—","C","Central diseña y lidera el plan corporativo; Gestor Negocio aporta las necesidades de su área; Planta las suyas"],
   ["","Alta de Acción Formativa (AAFF) en SAP y codificación","R","—","—","C","Central gestiona la formación transversal y soft skills; Planta puede dar de alta la formación operativa específica"],
@@ -887,7 +887,7 @@ const TAREAS = [
   ["","KPIs de formación (SAP + iFormalia) para reporting ejecutivo","R","—","—","—","Central íntegramente. 68.116 h en 2025 (+150% vs 2019). Indicadores homogéneos."],
   ["","LMS / plataforma e-learning y homologación de proveedores","R","R","—","—","Central gobierna la plataforma y homologa proveedores; Gestor Negocio valida la adecuación de contenidos"],
   ["","Impartición de formación interna operativa","—","R","—","R","Gestor Negocio coordina la programación; Planta imparte y gestiona la formación técnica en el puesto"],
-
+ 
   // ── TALENTO Y PLANIFICACIÓN DE PERSONAS
   ["TALENTO Y PLANIFICACIÓN DE PERSONAS","Certificación Top Employer: coordinación y auditoría anual","R","R","—","—","Central coordina el proceso de auditoría; Gestor Negocio aporta evidencias de su área"],
   ["","Mapa de planes de carrera y mapa de talento corporativo","R","R","—","—","Central diseña los itinerarios; Gestor Negocio los activa y hace seguimiento con el negocio"],
@@ -904,7 +904,7 @@ const TAREAS = [
   ["","Proyección de plantilla y gestión de la RPT","R","R","C","C","Central define el modelo; Gestor Negocio proyecta; CSC facilita datos; Planta informa necesidades"],
   ["","Workforce planning y previsión de plantilla (medio-largo plazo)","R","R","—","—","Central y Gestor Negocio conjuntamente. Visión estratégica a medio-largo plazo."],
   ["","KPIs de rotación, absentismo y coste de selección para comité","R","R","—","C","Central consolida y reporta; Gestor Negocio analiza los datos de su área; Planta aporta información"],
-
+ 
   // ── COMPENSACIÓN Y BENEFICIOS
   ["COMPENSACIÓN Y BENEFICIOS","Mapa retributivo y benchmarking de mercado","R","R","—","—","Central lidera el benchmarking; Gestor Negocio lo traslada a la estrategia de cada área"],
   ["","Revisión anual del salario fijo (matriz de decisiones)","R","R","—","—","Central diseña la política y la matriz; Gestor Negocio aplica los criterios en su área"],
@@ -912,7 +912,7 @@ const TAREAS = [
   ["","Alineamiento de variables mensuales y trimestrales","R","R","—","—","Central garantiza la coherencia; Gestor Negocio valida los indicadores de corto plazo de su área"],
   ["","Plan de retribución flexible corporativo","R","R","C","—","Central diseña el catálogo; Gestor Negocio lo comunica; CSC opera la plataforma y los proveedores"],
   ["","Política de beneficios no monetarios diferenciadores","R","R","—","—","Central define el catálogo; Gestor Negocio lo comunica y activa en cada unidad de negocio"],
-
+ 
   // ── GESTIÓN DE TIEMPO Y ABSENTISMO
   ["GESTIÓN DE TIEMPO Y ABSENTISMO","Calendario laboral anual y gestión de turnos","—","R","C","R","Gestor Negocio aprueba el calendario; CSC lo registra en sistema; Planta ejecuta y gestiona los turnos"],
   ["","Fichajes, correcciones, permisos y vacaciones","—","—","C","R","Planta gestiona el día a día; CSC supervisa la trazabilidad y corrige incidencias en sistema"],
@@ -921,19 +921,19 @@ const TAREAS = [
   ["","Cuadro de mando de absentismo y protocolo de seguimiento","R","R","C","R","Central define el protocolo; Gestor Negocio hace seguimiento; CSC elabora el cuadro; Planta lo ejecuta"],
   ["","Cálculo y control del coste del absentismo para dirección","R","R","—","C","Central analiza y reporta al comité; Gestor Negocio aporta el contexto de su área"],
   ["","Carga de incidencias de nómina (fichajes, correcciones)","—","R","C","R","Planta carga y comunica las incidencias; Gestor Negocio supervisa; CSC las revisa y aplica en nómina"],
-
+ 
   // ── PLANIFICACIÓN ESTRATÉGICA Y DATOS
   ["PLANIFICACIÓN ESTRATÉGICA Y DATOS","Modelo de People Analytics: captura, calidad y visualización","R","R","C","—","Central construye los modelos; Gestor Negocio los utiliza para proponer acciones; CSC garantiza el dato"],
   ["","Cuadro de mando DyGP para comité de dirección","R","R","C","—","Central elabora el cuadro; Gestor Negocio aporta análisis de su área; CSC facilita la extracción de datos"],
   ["","Estandarización y calidad del dato RRHH (gobierno del dato)","R","R","C","—","Central define los estándares; Gestor Negocio vela por la calidad en su área; CSC implanta los controles"],
   ["","Proyectos de transformación organizativa (change management)","R","R","—","C","Central lidera; Gestor Negocio gestiona el cambio en el negocio; Planta lo implementa en el centro"],
   ["","Integración de plantas adquiridas (procesos M&A)","—","R","R","—","Gestor Negocio lidera la integración con el negocio; CSC gestiona la integración administrativa y de sistemas"],
-
+ 
   // ── CLIMA Y COMUNICACIÓN INTERNA
   ["CLIMA Y COMUNICACIÓN INTERNA","Encuesta de clima / eNPS: diseño, lanzamiento y análisis","R","R","—","C","Central diseña y analiza; Gestor Negocio difunde y propone planes de acción; Planta ejecuta las mejoras"],
   ["","Canal de denuncias y comunicaciones internas corporativas","R","R","—","C","Central define y gestiona el canal; Gestor Negocio lo comunica; Planta informa a los trabajadores"],
   ["","Reconocimientos, employee experience y acogida cultural","R","R","—","C","Central diseña el programa; Gestor Negocio lo activa; Planta ejecuta los reconocimientos presenciales"],
-
+ 
   // ── EMPRESA SALUDABLE
   ["EMPRESA SALUDABLE","Pilar 1: Entorno de trabajo saludable (Espai Cardioprotegit)","R","R","—","C","Central diseña estándares y certifica; Gestor Negocio coordina; Planta ejecuta en cada centro"],
   ["","Pilar 2: Bienestar emocional (acoso, igualdad, psicología)","R","R","—","C","Central coordina protocolos; Gestor Negocio traslada al negocio; Planta ejecuta. FPSICO: 68%→75%."],
@@ -941,7 +941,7 @@ const TAREAS = [
   ["","Pilar 4: Participación en la comunidad (GRANS AMICS GVC)","R","R","—","C","Central diseña el programa; Gestor Negocio moviliza la participación; Planta organiza. 55% participa."],
   ["","Pilar 5: Salud financiera (nuevo 2025)","R","R","—","—","Central diseña y coordina las iniciativas; Gestor Negocio las difunde activamente en cada unidad"],
   ["","Pilar 6: Certificaciones REES + Corazón","R","—","—","—","Central íntegramente (Ministerio de Sanidad + Fundación Española del Corazón)."],
-
+ 
   // ── IT-DyGP
   ["IT-DYGP — Centro de Excelencia (CoE)","Proyectos transversales IT-DyGP","R","—","—","—","Central íntegramente. Visión global, recursos dedicados y PMO."],
   ["","Proyectos de mejora de procesos DyGP","R","—","—","—","Central íntegramente. Reingeniería de procesos. Metodología y gobierno desde CoE."],
@@ -984,9 +984,9 @@ const AREA_COLORS = {
   "IT-DYGP — Gestor de Negocio (BP)":"#D46B2A",
   "IT-DYGP — Planta (Soporte Local)":"#2E7D5B",
 };
-
+ 
 let currentArea = 'all', currentSearch = '', editMode = false;
-
+ 
 // Convert TAREAS into a mutable array of row objects with a stable area per row (carry-forward),
 // each with a unique id so edits/deletes are reliable even after re-render.
 let TASK_ROWS = [];
@@ -998,7 +998,7 @@ let TASK_ROWS = [];
     TASK_ROWS.push({ id: id++, area: ea, isNewArea: !!area, tarea, cen, gn, csc, plt, nota: nota || '' });
   });
 })();
-
+ 
 function filterArea(area, btn) {
   currentArea = area;
   btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1006,7 +1006,7 @@ function filterArea(area, btn) {
   buildTable();
 }
 function searchTasks(val) { currentSearch = val.toLowerCase(); buildTable(); }
-
+ 
 function toggleEditMode() {
   editMode = !editMode;
   const btn = document.getElementById('editToggleBtn');
@@ -1022,7 +1022,7 @@ function toggleEditMode() {
   delHeader.style.display = editMode ? 'table-cell' : 'none';
   buildTable();
 }
-
+ 
 function cycleValue(rowId, field) {
   const row = TASK_ROWS.find(r => r.id === rowId);
   if (!row) return;
@@ -1031,7 +1031,7 @@ function cycleValue(rowId, field) {
   row[field] = order[(idx + 1) % order.length];
   buildTable();
 }
-
+ 
 function deleteRow(rowId) {
   const row = TASK_ROWS.find(r => r.id === rowId);
   if (!row) return;
@@ -1045,7 +1045,7 @@ function deleteRow(rowId) {
   TASK_ROWS.splice(idx, 1);
   buildTable();
 }
-
+ 
 function openAddTaskForm() {
   const sel = document.getElementById('newTaskArea');
   sel.innerHTML = Object.keys(AREA_COLORS).map(a => `<option value="${a}">${a}</option>`).join('');
@@ -1080,7 +1080,7 @@ function confirmAddTask() {
   closeAddTaskForm();
   buildTable();
 }
-
+ 
 function updateNota(rowId, val) {
   const row = TASK_ROWS.find(r => r.id === rowId);
   if (row) row.nota = val;
@@ -1134,3 +1134,4 @@ function nota(text, rowId) {
 buildTable();
 </script>
 </body></html>
+ 

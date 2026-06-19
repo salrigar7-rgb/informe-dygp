@@ -1081,6 +1081,14 @@ function confirmAddTask() {
   buildTable();
 }
 
+function updateNota(rowId, val) {
+  const row = TASK_ROWS.find(r => r.id === rowId);
+  if (row) row.nota = val;
+}
+function updateTarea(rowId, val) {
+  const row = TASK_ROWS.find(r => r.id === rowId);
+  if (row) row.tarea = val;
+}
 function buildTable() {
   const tbody = document.getElementById('tasksBody');
   tbody.innerHTML = '';
@@ -1100,7 +1108,10 @@ function buildTable() {
     const tr = document.createElement('tr');
     tr.className = 'task-row';
     const delCell = editMode ? `<td style="text-align:center"><button onclick="deleteRow(${row.id})" title="Eliminar tarea" style="background:none;border:none;cursor:pointer;font-size:.9rem;opacity:.6" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6">🗑️</button></td>` : '';
-    tr.innerHTML = `<td style="font-size:.77rem;line-height:1.4">${row.tarea}</td>${rc(row.cen, row.id, 'cen')}${rc(row.gn, row.id, 'gn')}${rc(row.csc, row.id, 'csc')}${rc(row.plt, row.id, 'plt')}<td style="font-size:.7rem;color:#888;line-height:1.4">${row.nota}</td>${delCell}`;
+    const tareaCell = editMode
+      ? `<td style="font-size:.77rem;line-height:1.4;padding:.3rem .5rem"><input value="${row.tarea.replace(/"/g,'&quot;')}" onchange="updateTarea(${row.id},this.value)" style="width:100%;font-size:.77rem;border:1px solid var(--gris2);border-radius:5px;padding:.25rem .4rem;font-family:inherit;background:#fff;outline:none"></td>`
+      : `<td style="font-size:.77rem;line-height:1.4">${row.tarea}</td>`;
+    tr.innerHTML = `${tareaCell}${rc(row.cen, row.id, 'cen')}${rc(row.gn, row.id, 'gn')}${rc(row.csc, row.id, 'csc')}${rc(row.plt, row.id, 'plt')}${nota(row.nota, row.id)}${delCell}`;
     tbody.appendChild(tr);
   });
   document.getElementById('rowCount').textContent = `${count} tarea${count !== 1 ? 's' : ''}${currentSearch ? ' encontrada' + (count !== 1 ? 's' : '') : ''}${editMode ? ' · modo edición activo' : ''}`;
@@ -1112,6 +1123,13 @@ function rc(v, rowId, field) {
     return `<td class="td-rc ${cls}" style="cursor:pointer" onclick="cycleValue(${rowId},'${field}')" title="Clic para cambiar">${label}</td>`;
   }
   return `<td class="td-rc ${cls}">${label}</td>`;
+}
+function nota(text, rowId) {
+  if (editMode) {
+    const safe = (text || '').replace(/"/g, '&quot;');
+    return `<td style="padding:.3rem .5rem"><input value="${safe}" onchange="updateNota(${rowId},this.value)" style="width:100%;font-size:.72rem;color:#444;border:1px solid var(--gris2);border-radius:5px;padding:.25rem .4rem;font-family:inherit;background:#fff;outline:none" onblur="updateNota(${rowId},this.value)" placeholder="Añadir nota..."></td>`;
+  }
+  return `<td style="font-size:.7rem;color:#888;line-height:1.4">${text || ''}</td>`;
 }
 buildTable();
 </script>

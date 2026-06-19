@@ -1,666 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modelo Organizativo DyGP · Grup Vall Companys · 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{--azul:#1B3A5C;--azul-m:#2E6DA4;--azul-cl:#D6E4F0;--naranj:#D46B2A;--verde:#2E7D5B;--violeta:#7B3F9E;--rojo:#B03030;--teal:#0E6655;--ambar:#8C6A00;--gris1:#F5F7FA;--gris2:#E4E8EF;--gris3:#8A93A2;--texto:#1A1F2E;--blanco:#FFFFFF;--R-bg:#D5EFE2;--R-c:#1A5C35;--C-bg:#FDE9D9;--C-c:#9B4410;}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--gris1);color:var(--texto);min-height:100vh;}
-/* NAV */
-nav{position:sticky;top:0;z-index:100;background:var(--azul);display:flex;align-items:center;padding:0 1.5rem;box-shadow:0 2px 20px rgba(0,0,0,.3);overflow-x:auto;}
-.nav-brand{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--blanco);padding:.9rem 1.2rem .9rem 0;border-right:1px solid rgba(255,255,255,.15);margin-right:.8rem;white-space:nowrap;}
-.nav-brand span{color:var(--naranj);}
-.tab-btn{background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.55);padding:.9rem .85rem;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.02em;}
-.tab-btn:hover{color:rgba(255,255,255,.85);}
-.tab-btn.active{color:var(--blanco);border-bottom-color:var(--naranj);}
-/* PANELS */
-.tab-panel{display:none;}
-.tab-panel.active{display:block;}
-/* HERO */
-.hero{background:linear-gradient(135deg,var(--azul) 0%,#0D2236 60%,#162840 100%);padding:4.5rem 2.5rem 3.5rem;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
-.hero-inner{max-width:900px;margin:0 auto;position:relative;}
-.hero-tag{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.12em;color:var(--naranj);text-transform:uppercase;border:1px solid rgba(212,107,42,.4);padding:.3rem .8rem;border-radius:2rem;margin-bottom:1.4rem;}
-.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.4rem);color:var(--blanco);line-height:1.1;margin-bottom:.5rem;}
-.hero h1 em{color:var(--naranj);font-style:normal;}
-.hero-sub{font-size:1rem;color:rgba(255,255,255,.55);margin-bottom:2.2rem;font-weight:300;}
-.hero-pills{display:flex;flex-wrap:wrap;gap:.5rem;}
-.hero-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:.76rem;padding:.32rem .85rem;border-radius:2rem;cursor:pointer;transition:all .2s;}
-.hero-pill:hover{background:rgba(255,255,255,.15);color:var(--blanco);}
-/* CONTENT */
-.content{max-width:1100px;margin:0 auto;padding:2.2rem 2rem;}
-.section-title{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--azul);margin-bottom:.25rem;}
-.section-sub{font-size:.86rem;color:var(--gris3);margin-bottom:1.8rem;font-weight:400;}
-/* GRIDS */
-.cards-2{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;margin-bottom:1.8rem;}
-.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-bottom:1.8rem;}
-.cards-4{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-bottom:1.8rem;}
-.cards-5{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem;margin-bottom:1.8rem;}
-@media(max-width:780px){.cards-2,.cards-3,.cards-4,.cards-5{grid-template-columns:1fr;}}
-/* CARD */
-.card{background:var(--blanco);border-radius:12px;padding:1.3rem;border:1px solid var(--gris2);box-shadow:0 2px 8px rgba(0,0,0,.04);transition:box-shadow .2s,transform .2s;}
-.card:hover{box-shadow:0 6px 24px rgba(0,0,0,.09);transform:translateY(-2px);}
-.card-num{font-family:'DM Serif Display',serif;font-size:2rem;font-weight:400;margin-bottom:.4rem;}
-.card-title{font-size:.88rem;font-weight:600;margin-bottom:.35rem;}
-.card-body{font-size:.8rem;color:var(--gris3);line-height:1.55;}
-/* ARG LIST */
-.arg-list{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.8rem;}
-.arg-card{display:grid;grid-template-columns:48px 1fr;background:var(--blanco);border-radius:10px;border:1px solid var(--gris2);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:box-shadow .15s;}
-.arg-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);}
-.arg-num{display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--blanco);padding:.75rem;}
-.arg-body{padding:.85rem 1rem;}
-.arg-body strong{font-size:.86rem;display:block;margin-bottom:.2rem;}
-.arg-body p{font-size:.79rem;color:var(--gris3);line-height:1.5;}
-/* CALLOUT */
-.callout{border-left:4px solid;border-radius:0 10px 10px 0;padding:.9rem 1.2rem;margin-bottom:1.4rem;font-size:.84rem;line-height:1.6;}
-.callout strong{display:block;margin-bottom:.25rem;font-size:.76rem;letter-spacing:.05em;text-transform:uppercase;}
-.callout.naranj{border-color:var(--naranj);background:#FEF5EC;color:#7C3010;}
-.callout.azul{border-color:var(--azul-m);background:#EDF3FA;color:#1B3A5C;}
-.callout.verde{border-color:var(--verde);background:#EAF5EE;color:#1A5C35;}
-.callout.violeta{border-color:var(--violeta);background:rgba(123,63,158,.07);color:#4A1A7A;}
-/* NIVEL CARDS */
-.nivel-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-bottom:1.8rem;}
-@media(max-width:780px){.nivel-row{grid-template-columns:1fr 1fr;}}
-.nivel-card{border-radius:10px;padding:.95rem;color:var(--blanco);}
-.nivel-name{font-weight:700;font-size:.88rem;margin-bottom:.15rem;}
-.nivel-role{font-size:.67rem;opacity:.75;margin-bottom:.4rem;font-style:italic;}
-.nivel-desc{font-size:.74rem;opacity:.85;line-height:1.45;}
-/* DAFO */
-.dafo-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.8rem;}
-@media(max-width:600px){.dafo-grid{grid-template-columns:1fr;}}
-.dafo-card{border-radius:12px;padding:1.3rem;border:1px solid transparent;}
-.dafo-card h3{font-size:.79rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.9rem;display:flex;align-items:center;gap:.35rem;}
-.dafo-card ul{list-style:none;padding:0;}
-.dafo-card ul li{font-size:.79rem;line-height:1.5;padding:.4rem 0;border-bottom:1px solid rgba(0,0,0,.06);display:flex;gap:.45rem;}
-.dafo-card ul li:last-child{border-bottom:none;}
-.dafo-card ul li::before{content:'';flex-shrink:0;margin-top:.45rem;width:6px;height:6px;border-radius:50%;}
-.dafo-F{background:#EAF5EE;border-color:#A8D8BA;} .dafo-F h3{color:var(--verde);} .dafo-F ul li::before{background:var(--verde);}
-.dafo-D{background:#FDF5F5;border-color:#EFBCBC;} .dafo-D h3{color:var(--rojo);} .dafo-D ul li::before{background:var(--rojo);}
-.dafo-O{background:#EDF3FA;border-color:#A8C4E0;} .dafo-O h3{color:var(--azul-m);} .dafo-O ul li::before{background:var(--azul-m);}
-.dafo-A{background:#FEF5EC;border-color:#F0C89A;} .dafo-A h3{color:var(--naranj);} .dafo-A ul li::before{background:var(--naranj);}
-/* CONDITIONS */
-.conditions{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.8rem;}
-.cond{display:grid;grid-template-columns:44px 1fr;background:var(--blanco);border-radius:10px;border:1px solid var(--gris2);overflow:hidden;}
-.cond-n{display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--blanco);}
-.cond-b{padding:.8rem 1rem;font-size:.83rem;line-height:1.5;color:var(--texto);}
-/* TABLES */
-.tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--gris2);margin-bottom:1.8rem;}
-.tbl{width:100%;border-collapse:collapse;font-size:.78rem;}
-.tbl thead th{background:var(--azul);color:var(--blanco);padding:.65rem .9rem;text-align:left;font-size:.71rem;font-weight:600;letter-spacing:.04em;}
-.tbl tbody tr:nth-child(even) td{background:var(--gris1);}
-.tbl tbody tr:hover td{background:#F0F5FC;}
-.tbl tbody td{padding:.5rem .9rem;vertical-align:top;border-bottom:1px solid var(--gris2);line-height:1.5;}
-.tbl tbody tr:last-child td{border-bottom:none;}
-.tbl .tr-sec td{background:var(--azul)!important;color:var(--blanco);font-size:.71rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.5rem .9rem;}
-.tbl .tr-sub td{background:#EEF2F7!important;font-size:.7rem;font-weight:600;color:#555;font-style:italic;padding:.38rem .9rem;}
-/* BADGES */
-.badge{display:inline-block;padding:.15rem .55rem;border-radius:10px;font-size:.7rem;font-weight:700;white-space:nowrap;}
-.bc{background:#D5EFE2;color:#1A5C35;}
-.bh{background:var(--azul-cl);color:var(--azul-m);}
-.bp2{background:#FDE9D9;color:#9B4410;}
-.bplanta{background:#D5EFE2;color:#2E7D5B;}
-.bcoe{background:#EDF3FA;color:var(--azul);}
-.bcsc{background:#D1F2EB;color:var(--teal);}
-.bbp{background:#FDE9D9;color:#9B4410;}
-.bloc{background:rgba(123,63,158,.12);color:var(--violeta);}
-/* FILTER + SEARCH */
-.filter-bar{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1rem;align-items:center;}
-.filter-btn{background:var(--blanco);border:1px solid var(--gris2);border-radius:6px;padding:.3rem .7rem;font-size:.76rem;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;color:var(--gris3);}
-.filter-btn:hover{border-color:var(--azul-m);color:var(--azul);}
-.filter-btn.active{background:var(--azul);color:var(--blanco);border-color:var(--azul);}
-.search-box{flex:1;min-width:160px;border:1px solid var(--gris2);border-radius:6px;padding:.32rem .75rem;font-size:.78rem;font-family:'DM Sans',sans-serif;outline:none;color:var(--texto);}
-.search-box:focus{border-color:var(--azul-m);}
-.tasks-table{width:100%;border-collapse:collapse;font-size:.77rem;}
-.tasks-table thead th{background:var(--azul);color:var(--blanco);padding:.6rem .8rem;text-align:center;font-weight:600;font-size:.7rem;letter-spacing:.04em;position:sticky;top:0;z-index:2;}
-.tasks-table thead th:first-child{text-align:left;}
-.tasks-table thead th.col-cen{background:#1B4878;}
-.tasks-table thead th.col-bp{background:#C05E20;}
-.tasks-table thead th.col-csc{background:#0A4F40;}
-.tasks-table thead th.col-plt{background:#256048;}
-.area-row td{font-weight:700;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;padding:.5rem .8rem;color:var(--blanco);}
-.task-row td{padding:.45rem .8rem;border-bottom:1px solid var(--gris2);vertical-align:middle;}
-.task-row:last-child td{border-bottom:none;}
-.task-row:hover td{background:#F0F5FC;}
-.td-rc{text-align:center;font-weight:700;font-size:.8rem;}
-.td-rc.R{color:#1A5C35;background:#D5EFE2;border-radius:4px;}
-.td-rc.C{color:#9B4410;background:#FDE9D9;border-radius:4px;}
-.td-rc.none{color:#CCC;}
-.row-count{font-size:.74rem;color:var(--gris3);margin-bottom:.5rem;}
-/* SCORE */
-.score-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-bottom:1.8rem;}
-.score-table th{background:var(--azul);color:var(--blanco);padding:.55rem .8rem;text-align:left;font-size:.7rem;letter-spacing:.04em;}
-.score-table td{padding:.48rem .8rem;border-bottom:1px solid var(--gris2);}
-.score-table tr:nth-child(even) td{background:var(--gris1);}
-.score-badge{display:inline-block;text-align:center;font-weight:700;font-size:.76rem;padding:.18rem .5rem;border-radius:4px;min-width:36px;}
-.score-hi{background:#D5EFE2;color:#1A5C35;}
-.score-mid{background:#FDE9D9;color:#9B4410;}
-.score-lo{background:#FAF0F0;color:var(--rojo);}
-.score-na{background:var(--gris2);color:var(--gris3);}
-/* ZONE ROW */
-.zone-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--gris2);border-radius:10px;overflow:hidden;margin-bottom:1.4rem;}
-.zone-col{padding:.45rem 1rem;text-align:center;}
-.zone-col span{font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
-/* LEGEND */
-.legend{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.4rem;align-items:center;font-size:.74rem;color:var(--gris3);}
-.legend-dot{width:10px;height:10px;border-radius:3px;display:inline-block;}
-/* EQUIPO CARDS */
-.eq-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.8rem;}
-@media(max-width:600px){.eq-grid{grid-template-columns:1fr;}}
-.eq-card{background:var(--blanco);border:1px solid var(--gris2);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);}
-.eq-head{padding:.75rem 1rem;font-size:.82rem;font-weight:700;color:var(--blanco);}
-.eq-body{padding:.9rem 1rem;font-size:.79rem;}
-.eq-row{color:var(--gris3);margin-bottom:.25rem;}
-.eq-row strong{color:var(--texto);}
-.eq-emp-lbl{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gris3);margin:.5rem 0 .25rem;}
-.eq-emp{font-size:.73rem;color:#555;line-height:1.7;}
-.eq-tag{font-size:.7rem;font-weight:600;color:var(--gris3);display:inline-block;background:var(--gris1);border:1px solid var(--gris2);border-radius:4px;padding:.1rem .45rem;margin:.1rem;}
-/* PROS/CONTRAS */
-.pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.8rem;}
-@media(max-width:600px){.pc-grid{grid-template-columns:1fr;}}
-.pc-box{background:var(--blanco);border:1px solid var(--gris2);border-radius:12px;overflow:hidden;}
-.pc-head{padding:.65rem 1rem;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--blanco);}
-.pc-box ul{list-style:none;padding:.2rem 0;}
-.pc-box li{padding:.55rem 1rem;font-size:.79rem;border-bottom:1px solid var(--gris2);display:flex;gap:.55rem;align-items:flex-start;}
-.pc-box li:last-child{border-bottom:none;}
-.pros li::before{content:'✓';color:var(--verde);font-weight:700;flex-shrink:0;}
-.contras li::before{content:'⚠';color:var(--rojo);font-weight:700;flex-shrink:0;}
-/* VEREDICTO */
-.veredicto{background:var(--azul);color:var(--blanco);border-radius:12px;padding:1.4rem 1.6rem;margin-bottom:1.8rem;}
-.ver-t{font-family:'DM Serif Display',serif;font-size:1.15rem;margin-bottom:.7rem;}
-.ver-b{font-size:.82rem;line-height:1.7;color:rgba(255,255,255,.85);}
-.ver-steps{margin-top:.85rem;display:flex;flex-direction:column;gap:.45rem;}
-.ver-step{background:rgba(255,255,255,.08);border-left:3px solid var(--naranj);padding:.65rem 1rem;border-radius:0 6px 6px 0;font-size:.8rem;color:rgba(255,255,255,.9);}
-/* HIGHLIGHT */
-.hl{background:var(--azul);color:var(--blanco);border-radius:10px;padding:1rem 1.3rem;margin-bottom:1.4rem;font-size:.84rem;font-weight:500;line-height:1.6;}
-/* KPI */
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-bottom:1.8rem;}
-@media(max-width:600px){.kpi-grid{grid-template-columns:1fr 1fr;}}
-.kpi{background:var(--blanco);border:1px solid var(--gris2);border-radius:10px;padding:1.1rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.04);}
-.kpi-n{font-family:'DM Serif Display',serif;font-size:1.7rem;color:var(--azul);line-height:1;}
-.kpi-l{font-size:.73rem;color:var(--gris3);margin-top:.25rem;}
-.kpi-d{font-size:.73rem;font-weight:600;color:var(--verde);margin-top:.15rem;}
-/* EJES */
-.ejes-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.8rem;}
-.eje{background:var(--blanco);border:1px solid var(--gris2);border-radius:10px;padding:1rem 1.1rem;}
-.eje-n{font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.25rem;}
-.eje-t{font-size:.9rem;font-weight:600;margin-bottom:.4rem;}
-.eje-b{font-size:.78rem;color:var(--gris3);line-height:1.7;}
-/* TRASVASE */
-.tv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.9rem;margin-bottom:1.8rem;}
-@media(max-width:700px){.tv-grid{grid-template-columns:1fr;}}
-/* SUBÁREA CARDS */
-.sa{background:var(--blanco);border:1px solid var(--gris2);border-radius:12px;overflow:hidden;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.04);}
-.sa-h{padding:1rem 1.2rem;display:flex;align-items:center;gap:.8rem;}
-.sa-ref{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700;color:var(--blanco);flex-shrink:0;}
-.sa-name{font-size:.88rem;font-weight:700;}
-.sa-mis{font-size:.76rem;color:#555;margin-top:.15rem;}
-.sa-m{display:flex;gap:1.2rem;padding:.6rem 1.2rem;background:var(--gris1);border-top:1px solid var(--gris2);flex-wrap:wrap;}
-.sa-mi label{font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gris3);display:block;}
-.sa-mi span{font-size:.76rem;font-weight:600;color:var(--azul);}
-/* PRÓXIMOS PASOS */
-.px-list{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.8rem;}
-.px-item{background:var(--blanco);border:1px solid var(--gris2);border-radius:10px;padding:.8rem 1rem;display:flex;gap:.85rem;align-items:flex-start;box-shadow:0 1px 4px rgba(0,0,0,.04);}
-.px-n{width:24px;height:24px;background:var(--azul);color:var(--blanco);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:.1rem;}
-.px-t{font-size:.82rem;line-height:1.55;}
-/* EVIDENCIAS */
-.ev-list{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.8rem;}
-.ev{background:var(--blanco);border:1px solid var(--gris2);border-radius:10px;padding:.9rem 1.1rem;display:grid;grid-template-columns:220px 1fr;gap:1.2rem;align-items:start;}
-@media(max-width:600px){.ev{grid-template-columns:1fr;}}
-.ev-t{font-size:.8rem;font-weight:600;color:var(--azul);}
-.ev-b{font-size:.8rem;color:#444;line-height:1.55;}
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-.tab-panel.active>*{animation:fadeUp .3s ease both;}
-.tab-panel.active>*:nth-child(2){animation-delay:.05s;}
-.tab-panel.active>*:nth-child(3){animation-delay:.1s;}
-hr.divider{border:none;border-top:1px solid var(--gris2);margin:1.8rem 0;}
-/* ── EDITOR TOOLBAR ── */
-#editor-bar{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:6px;background:var(--azul);border-radius:40px;padding:8px 16px;box-shadow:0 6px 28px rgba(0,0,0,.35);transition:opacity .2s;}
-#editor-bar.hidden{opacity:0;pointer-events:none;}
-.eb-btn{background:rgba(255,255,255,.1);border:none;color:#fff;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:.82rem;font-family:inherit;font-weight:600;transition:background .15s;white-space:nowrap;}
-.eb-btn:hover{background:rgba(255,255,255,.22);}
-.eb-btn.on{background:var(--naranj);color:#fff;}
-.eb-sep{width:1px;background:rgba(255,255,255,.2);height:20px;}
-.eb-btn.save-ok{background:#27AE60 !important;}
-#eb-mode-label{font-size:.75rem;color:rgba(255,255,255,.55);white-space:nowrap;}
-/* Editable regions */
-[contenteditable=true]{outline:2px dashed rgba(46,109,164,.35);outline-offset:2px;border-radius:3px;}
-[contenteditable=true]:focus{outline:2px solid var(--naranj);background:rgba(255,255,255,.04);}
-mark.hl{background:#FDE68A;border-radius:2px;padding:0 1px;}
-</style>
-</head>
-<body>
-
-<!-- ── EDITOR TOOLBAR ── -->
-<div id="editor-bar" class="hidden">
-  <span id="eb-mode-label">Modo edición</span>
-  <div class="eb-sep"></div>
-  <button class="eb-btn" id="eb-bold"     onclick="fmt('bold')"           title="Negrita (Ctrl+B)"><b>N</b></button>
-  <button class="eb-btn" id="eb-strike"   onclick="fmt('strikeThrough')"  title="Tachado"><s>T</s></button>
-  <button class="eb-btn" id="eb-hl"       onclick="fmtHL()"               title="Subrayador amarillo">🖊</button>
-  <button class="eb-btn" id="eb-remove"   onclick="fmtRemove()"           title="Quitar formato">✕</button>
-  <div class="eb-sep"></div>
-  <button class="eb-btn" id="eb-save"     onclick="saveAll()">💾 Guardar</button>
-  <button class="eb-btn" id="eb-reset"    onclick="resetAll()" title="Descartar todos los cambios">↩ Resetear</button>
-  <div class="eb-sep"></div>
-  <button class="eb-btn" onclick="toggleEdit()" id="eb-toggle">✏️ Activar edición</button>
-</div>
-
-<nav>
-  <div class="nav-brand">DyGP <span>·</span> Informe Estratégico</div>
-  <button class="tab-btn active" onclick="switchTab('inicio')">Inicio</button>
-  <button class="tab-btn" onclick="switchTab('csc')">CSC: Central o Negocio</button>
-  <button class="tab-btn" onclick="switchTab('laboral')">Laboral</button>
-  <button class="tab-btn" onclick="switchTab('formacion')">Formación</button>
-  <button class="tab-btn" onclick="switchTab('seleccion')">Selección · Talento · C&amp;B</button>
-  <button class="tab-btn" onclick="switchTab('it')">IT-DyGP</button>
-  <button class="tab-btn" onclick="switchTab('tareas')">Tareas</button>
-  <button class="tab-btn" onclick="switchTab('sintesis')">Síntesis</button>
-</nav>
-<!-- ═══ INICIO ═══ -->
-<div id="tab-inicio" class="tab-panel active">
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-tag">Desarrollo y Gestión de Personas · Junio 2026 · Confidencial</div>
-      <h1>Modelo Organizativo <em>DyGP</em><br>& Distribución de Tareas</h1>
-      <p class="hero-sub">Documento estratégico para la Dirección General · Grup Vall Companys · ~8.000 empleados</p>
-      <div class="hero-pills">
-        <span class="hero-pill" onclick="switchTab('csc')">① CSC: Central o Negocio →</span>
-        <span class="hero-pill" onclick="switchTab('laboral')">② Departamento Laboral →</span>
-        <span class="hero-pill" onclick="switchTab('formacion')">③ Formación →</span>
-        <span class="hero-pill" onclick="switchTab('seleccion')">④ Selección · Talento · C&amp;B →</span>
-        <span class="hero-pill" onclick="switchTab('it')">⑤ IT-DyGP →</span>
-        <span class="hero-pill" onclick="switchTab('tareas')">⑥ Tareas →</span>
-        <span class="hero-pill" onclick="switchTab('sintesis')">✓ Síntesis →</span>
-      </div>
-    </div>
-  </div>
-  <div class="content">
-    <p class="section-title">Los cuatro niveles funcionales</p>
-    <p class="section-sub">La arquitectura organizativa de DyGP — R = Responsable (dueño del resultado) · C = Colabora (sin ownership)</p>
-    <div class="nivel-row">
-      <div class="nivel-card" style="background:var(--azul)"><div class="nivel-name">🏛 Central</div><div class="nivel-role">Diseña · Decide · Lidera</div><div class="nivel-desc">Políticas, modelos y estándares corporativos. People Analytics, C&amp;B, Plan de Igualdad, negociación colectiva, mejora continua e IA.</div></div>
-      <div class="nivel-card" style="background:var(--naranj)"><div class="nivel-name">🤝 Gestor de Negocio</div><div class="nivel-role">Conecta · Gestiona · Activa</div><div class="nivel-desc">Traduce la estrategia al negocio. Lidera selección, evaluación, sucesiones, conflictos y cambio organizativo. Bisagra entre Central y el negocio.</div></div>
-      <div class="nivel-card" style="background:var(--azul-m)"><div class="nivel-name">⚙️ CSC</div><div class="nivel-role">Ejecuta · Estandariza</div><div class="nivel-desc">Nómina, SS, SILTRA, contratos, FUNDAE, fichajes, embargos. Procesos homogéneos, auditables y replicables.</div></div>
-      <div class="nivel-card" style="background:var(--verde)"><div class="nivel-name">🏭 Planta</div><div class="nivel-role">Atiende · Aplica</div><div class="nivel-desc">Cara visible de DyGP en planta. Atención presencial, fichajes, incidencias de turno, firmas y calendarios. Primer contacto del trabajador.</div></div>
-    </div>
-    <hr class="divider">
-    <p class="section-title">El modelo propuesto en cinco argumentos</p>
-    <p class="section-sub">Por qué esta estructura y no otra</p>
-    <div class="arg-list">
-      <div class="arg-card"><div class="arg-num" style="background:var(--azul-m)">01</div><div class="arg-body"><strong>Un R por tarea, sin excepción</strong><p>Si una tarea tiene más de un responsable, hay ambigüedad. Dos niveles pueden colaborar (C), pero solo uno es dueño del resultado. Este principio impide que el modelo degenere en una matriz de doble mando.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--azul)">02</div><div class="arg-body"><strong>El CSC: una decisión de diseño abierta</strong><p>Nómina, SS y SILTRA tienen riesgo legal corporativo, pero también una operativa diaria que vive en el negocio. La dependencia jerárquica del CSC —Central o Negocio— es una de las decisiones de diseño más relevantes de esta reorganización, y se desarrolla con ambas posiciones en la sección dedicada.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--verde)">03</div><div class="arg-body"><strong>La proximidad se resuelve con modelo, no con jerarquía</strong><p>El Departamento Laboral resuelve la proximidad con equipos especializados por área de negocio, dentro de un modelo de dependencia central. Un técnico puede conocer el convenio avícola y a los responsables de planta reportando a la Dirección de Personas.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--violeta)">04</div><div class="arg-body"><strong>Datos e IA como función estructural, no proyecto piloto</strong><p>People Analytics, IA aplicada y mejora continua requieren un nodo en la estructura con dependencia jerárquica definida. No sobreviven como iniciativas transversales sin ownership.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--naranj)">05</div><div class="arg-body"><strong>Consenso de los cuatro departamentos</strong><p>Laboral, Formación, Selección/Talento e IT-DyGP proponen el mismo modelo: Central diseña y gobierna; el negocio ejecuta con proximidad. Ningún departamento propone independencia del negocio.</p></div></div>
-    </div>
-    <hr class="divider">
-    <p class="section-title">Situación actual — antes de la propuesta</p>
-    <p class="section-sub">Tres tensiones que originan este informe</p>
-    <div class="cards-3">
-      <div class="card"><div class="card-num" style="color:var(--azul)">①</div><div class="card-title">Ratio insuficiente en Selección y Talento</div><div class="card-body">Ratio actual: 1 persona por cada 2.250 trabajadores. El benchmark sectorial es 1:80–150. Las mismas personas cubren simultáneamente Selección, Talento, C&amp;B y Empresa Saludable.</div></div>
-      <div class="card"><div class="card-num" style="color:var(--naranj)">②</div><div class="card-title">Sin especialización por área de negocio</div><div class="card-body">El Departamento Laboral opera sin equipos dedicados por área. La coordinación Negocio–Planta se sostiene en relaciones personales sin formalización estructural.</div></div>
-      <div class="card"><div class="card-num" style="color:var(--violeta)">③</div><div class="card-title">Formación infraestructurada</div><div class="card-body">68.116 horas de formación en 2025 (+150% vs 2019) con un equipo que no escala al ritmo del volumen. La propuesta de 4 personas sigue por debajo del ratio ATD 2025.</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ CSC ═══ -->
-<div id="tab-csc" class="tab-panel">
-  <div class="content">
-    <p class="section-title">CSC: ¿Central o Negocio?</p>
-    <p class="section-sub">Dos posiciones sobre la dependencia jerárquica del Centro de Servicios Compartidos</p>
-    <div class="callout azul"><strong>Contexto</strong>La reorganización de DyGP abre una pregunta de diseño que no tiene una respuesta única en la literatura de gestión: ¿debe el Centro de Servicios Compartidos (CSC) depender jerárquicamente de la Dirección de Personas (Central), o debe depender del negocio al que sirve? Ambas son arquitecturas válidas y ambas se usan en organizaciones comparables. Este apartado desarrolla las dos posiciones con el mismo nivel de detalle.</div>
-
-    <div class="cards-2">
-      <div class="card" style="border-left:4px solid var(--azul-m)">
-        <div class="card-title" style="color:var(--azul-m)">Posición A — El CSC depende de Central</div>
-        <div class="card-body">El argumento de fondo es el riesgo legal: nómina, Seguridad Social y SILTRA son procesos con responsabilidad corporativa, y quien asume el riesgo debería tener la autoridad jerárquica sobre quien lo ejecuta. Es el modelo que proponen, de forma independiente, los jefes de Laboral, Formación, Selección/Talento e IT-DyGP.</div>
-      </div>
-      <div class="card" style="border-left:4px solid var(--naranj)">
-        <div class="card-title" style="color:var(--naranj)">Posición B — El CSC depende del Negocio</div>
-        <div class="card-body">El argumento de fondo es la proximidad: quien convive con la operativa diaria de la planta es quien mejor puede priorizar, contextualizar y resolver con rapidez. Es la posición que defienden los Gestores de Negocio, que son quienes en última instancia responden ante la Dirección General por el funcionamiento de su área.</div>
-      </div>
-    </div>
-
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Posición A — Argumentos a favor de la dependencia de Central</p>
-    <div class="pc-grid">
-      <div class="pc-box"><div class="pc-head pros" style="background:var(--azul-m);">✅ A favor</div><ul class="pros">
-        <li>Cadena de mando limpia: un técnico de nómina, un único jefe jerárquico. Sin doble dependencia.</li>
-        <li>Nómina y SS son procesos con riesgo legal corporativo. El razonamiento clásico es que la autoridad debe alinearse con quien responde ante la inspección.</li>
-        <li>Economías de escala: una plataforma, un proceso de embargos, un gestor de SILTRA para todo el Grupo, en lugar de duplicar la función en cada negocio.</li>
-        <li>Coherencia con la posición de Formación, Selección/Talento e IT-DyGP, que también centralizan sus procesos transaccionales.</li>
-        <li>Auditoría más sencilla: mismos criterios aplicados de la misma manera en Avícola, Porcino, Harinas y Comercializadoras.</li>
-      </ul></div>
-      <div class="pc-box"><div class="pc-head contras" style="background:var(--rojo);">⚠️ Limitaciones</div><ul class="contras">
-        <li>El Gestor de Negocio, que es quien responde del resultado de su área ante Dirección General, no tiene autoridad real sobre quien ejecuta una función crítica para ese resultado.</li>
-        <li>Riesgo de pérdida de agilidad: una incidencia de nómina en planta puede quedar sujeta a las prioridades de Central, no a las del negocio que la sufre.</li>
-        <li>Un técnico gestionado y evaluado desde Central tiene menos incentivo a conocer en profundidad el convenio, los turnos y la casuística de cada negocio.</li>
-        <li>La rendición de cuentas se diluye: si una nómina sale mal, el Gestor de Negocio carga con la consecuencia ante su equipo sin tener la palanca para corregirla directamente.</li>
-        <li>Depende de que se construyan SLA y canales de escalado adicionales — una capa de gestión que no haría falta si la dependencia fuera directa.</li>
-      </ul></div>
-    </div>
-
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Posición B — Argumentos a favor de la dependencia del Negocio</p>
-    <div class="pc-grid">
-      <div class="pc-box"><div class="pc-head pros" style="background:var(--naranj);">✅ A favor</div><ul class="pros">
-        <li>Autoridad alineada con la responsabilidad: el Gestor de Negocio responde ante Dirección General por los resultados de su área, incluyendo la gestión de personas. Si no tiene autoridad jerárquica sobre el CSC, responde por algo que no controla.</li>
-        <li>Velocidad de respuesta: una incidencia de nómina o de contratación en planta se resuelve con la prioridad del negocio afectado, no en la cola de prioridades de una Central que sirve a cinco áreas distintas a la vez.</li>
-        <li>Conocimiento real del convenio y la operativa: un equipo que reporta al negocio convive con sus turnos, su estacionalidad y su casuística específica, en lugar de aplicar un criterio homogéneo que no siempre encaja.</li>
-        <li>Accountability directa: si algo falla, el Gestor de Negocio puede corregirlo de inmediato porque tiene autoridad sobre quien lo ejecuta, sin depender de un canal de escalado hacia otra dirección.</li>
-        <li>El modelo de equipos especializados por área que ya propone el Departamento Laboral —técnicos dedicados a Porcino, a Avícola, a Comercializadoras— es, en la práctica, un CSC organizado alrededor del negocio. Formalizar esa dependencia es reconocer lo que la propia estructura ya está haciendo.</li>
-        <li>Reduce la fricción de interlocución: sin canal intermedio entre el negocio y quien ejecuta la nómina o la contratación, se elimina un nivel de traducción y de demora.</li>
-      </ul></div>
-      <div class="pc-box"><div class="pc-head contras" style="background:var(--rojo);">⚠️ Limitaciones</div><ul class="contras">
-        <li>Riesgo de heterogeneidad: si cada negocio gestiona su CSC, los criterios de nómina, contratos o SS pueden divergir entre Avícola y Porcino sin que nadie lo note hasta una inspección.</li>
-        <li>Se pierden economías de escala si cada negocio termina necesitando su propia plataforma, su propio especialista en SILTRA o su propio proceso de embargos.</li>
-        <li>El riesgo legal (SEPE, TGSS, inspección de trabajo) sigue siendo corporativo aunque la ejecución esté en el negocio — exige mecanismos de auditoría central igualmente sólidos.</li>
-        <li>Requiere una función de auditoría y estandarización transversal para evitar que la descentralización derive en cinco modelos distintos de gestión de personas.</li>
-      </ul></div>
-    </div>
-
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Lectura conjunta</p>
-    <p class="section-sub" style="margin-bottom:1rem">Ambas posiciones resuelven problemas reales y generan riesgos reales. La diferencia no es de rigor técnico sino de qué riesgo se prioriza gestionar.</p>
-    <table class="score-table"><thead><tr><th>Criterio</th><th style="text-align:center;width:140px">Favorece</th><th>Observación</th></tr></thead><tbody id="scoreBodyCSC"></tbody></table>
-  </div>
-</div>
-<!-- ═══ LABORAL ═══ -->
-<div id="tab-laboral" class="tab-panel">
-  <div class="content">
-    <p class="section-title">Departamento Laboral</p>
-    <p class="section-sub">Nueva organización · Equipos por área de negocio · Distribución de materias · Modelo descentralizado avanzado</p>
-    <div class="cards-3">
-      <div class="card" style="border-top:3px solid var(--azul)"><div class="card-title" style="color:var(--azul)">Pilar 1 — Centralización estratégica</div><div class="card-body">Criterios comunes, normativa unificada y control corporativo desde la Dirección de Personas.</div></div>
-      <div class="card" style="border-top:3px solid var(--naranj)"><div class="card-title" style="color:var(--naranj)">Pilar 2 — Especialización por área</div><div class="card-body">Equipos dedicados con conocimiento profundo de cada negocio, convenio y entorno productivo.</div></div>
-      <div class="card" style="border-top:3px solid var(--verde)"><div class="card-title" style="color:var(--verde)">Pilar 3 — Proximidad operativa</div><div class="card-body">Soporte directo y ágil a las plantas, con capacidad de descentralización donde la madurez lo permite.</div></div>
-    </div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Estructura de equipos por área de negocio</p>
-    <p class="section-sub">Todos los equipos tienen dependencia directa de la Dirección de Personas (Central)</p>
-    <div class="eq-grid">
-      <div class="eq-card"><div class="eq-head" style="background:#1A5276">Comercializadoras</div><div class="eq-body"><div class="eq-row">Gestor de Negocio: <strong>Antonio Caminero</strong></div><div class="eq-row"><span class="eq-tag">3 técnicos/as laborales</span></div><div class="eq-emp-lbl">Empresas asignadas</div><div class="eq-emp">CARNES Y ALIMENTOS MASCRESPO · COMERCIAL VERA · DISPORAVE · DROPALMA · FRIMANCHA CANARIAS · FRIMANCHA INDUSTRIAS CÁRNICAS · GENERA MONTAGUT · JAMONES DURIBER · LOGÍSTICA MONTESANO · RUBIATO PAREDES · SADA P.A. CANARIAS · VACUNOPLUS</div></div></div>
-      <div class="eq-card"><div class="eq-head" style="background:var(--teal)">Mataderos (Avícola)</div><div class="eq-body"><div class="eq-row">Gestor de Negocio: <strong>Salva Ribes</strong></div><div class="eq-row"><span class="eq-tag">3 técnicos/as laborales</span></div><div class="eq-emp-lbl">Empresas asignadas</div><div class="eq-emp">AVÍCOLA DE GALICIA · AVÍCOLA DE LLEIDA · AVÍCOLA SÁNCHEZ · DOLZ ESPAÑA · ESCORXADOR D'AUS TORRENT I FILLS · GRUPO SADA P.A. · INDUSTRIA AVÍCOLA SUREÑA · PONDEX · CUNIGAL</div></div></div>
-      <div class="eq-card"><div class="eq-head" style="background:var(--violeta)">Harinas y Piensos</div><div class="eq-body"><div class="eq-row">Gestor de Negocio: <strong>Alejandro Palacín</strong></div><div class="eq-row"><span class="eq-tag">2 técnicos/as laborales</span></div><div class="eq-emp-lbl">Empresas asignadas</div><div class="eq-emp">HARINERA LA META · AGROCESA · AGROVALL FARM · EXPORTINSA · GANADERÍA CASASECA 2010 · INNOVAPORC · LA ROURERA · NUTRIVALL · VALL COMPANYS S.A.</div></div></div>
-      <div class="eq-card"><div class="eq-head" style="background:var(--rojo)">Porcino</div><div class="eq-body"><div class="eq-row">Gestor de Negocio: <strong>Bernat Mateu</strong></div><div class="eq-row"><span class="eq-tag">5 técnicos/as laborales</span></div><div class="eq-emp-lbl">Empresas asignadas</div><div class="eq-emp">CÁMARAS FRIGORÍFICAS DECECSA · CÁRNICAS CINCO VILLAS · CÁRNICAS FRIVALL · COMERCIAL LOGÍSTICA DE CALAMOCHA · EMBUTIDOS RODRÍGUEZ · EXTRAPERNIL DEL MONTSENY · GRUPO ALIMENTARIO NATURIBER · INDUSTRIAS REUNIDAS JABUGO · INTERNATIONAL CASING PRODUCTS · JAMCAL ALIMENTACIÓN · PALETAS MARPA · PATEL</div></div></div>
-    </div>
-    <div class="eq-card" style="margin-bottom:1.8rem"><div class="eq-head" style="background:var(--azul-m)">Servicios Corporativos</div><div class="eq-body"><div class="eq-row">Gestor de Negocio: <strong>Alejandro Palacín</strong></div><div class="eq-row"><span class="eq-tag">4 técnicos/as laborales</span></div><div class="eq-emp-lbl">Empresas asignadas</div><div class="eq-emp">CIA. GRAL. COMPRAS AGROPECUARIAS · COMERCIAL GRUP VALL 1996 · MEVET · SERVEIS TECNOLÒGICS DE PONENT · TRANSEGRE · VALL COMPANYS INTERNACIONAL</div><div class="callout naranj" style="margin-top:.8rem;margin-bottom:0">⚠️ Pendiente de asignación de Gestor de Negocio DyGP: Big Bang Food · Iglesias Farré Ros · Zyrcullar Brands · Zyrcullar Foods · Zyrcullar Plant · Zyrcullar Protein Labs</div></div></div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Distribución de materias — Central / Híbrido / Planta</p>
-    <p class="section-sub"><span class="badge bc">CENTRAL</span> Estandarización global, riesgo legal &nbsp;·&nbsp; <span class="badge bh">HÍBRIDO</span> Gobierno central + coordinación con planta &nbsp;·&nbsp; <span class="badge" style="background:#FDE9D9;color:#9B4410">PLANTA</span> Ejecutado desde planta, con coordinación central</p>
-    <div class="tbl-wrap"><table class="tbl">
-      <thead><tr><th>Área</th><th>Materia / Subtarea</th><th>Modelo</th><th>Observaciones</th></tr></thead>
-      <tbody>
-        <tr class="tr-sec"><td colspan="4">Administración de Personal</td></tr>
-        <tr><td>Adm. Personal</td><td>Organigrama y estructura</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Guarda legal</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Anticipos</td><td><span class="badge bh">HÍBRIDO</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Absentismos certificados (FDI, FIE…)</td><td><span class="badge bc">CENTRAL</span></td><td>Ver Mater/Pater</td></tr>
-        <tr><td>Adm. Personal</td><td>Pagas extra</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>FFHH</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Finiquitos y bajas en empresa</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Retención judicial / Embargos</td><td><span class="badge" style="background:#FDE9D9;color:#9B4410">PLANTA</span></td><td>Valorar descentralizado — plantas avanzadas</td></tr>
-        <tr><td>Adm. Personal</td><td>Nómina — proceso de cálculo</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Nómina — retros</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Cuota sindical</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Carga de incidencias</td><td><span class="badge" style="background:#FDE9D9;color:#9B4410">PLANTA</span></td><td>Valorar descentralizado</td></tr>
-        <tr><td>Adm. Personal</td><td>Alta de empleado</td><td><span class="badge bh">HÍBRIDO</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Contabilidad: TXT, libro contable</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>SLD - CRETA</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Nómina — conceptos</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Modelo 190 / IRPF</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Adm. Personal</td><td>Regularización IRPF</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr class="tr-sec"><td colspan="4">Relaciones Laborales (RRLL)</td></tr>
-        <tr><td>RRLL</td><td>Sanciones</td><td><span class="badge bh">HÍBRIDO</span></td><td>Sanciones leves: valorar planta avanzada</td></tr>
-        <tr><td>RRLL</td><td>Despidos</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>RRLL</td><td>Elecciones sindicales</td><td><span class="badge bh">HÍBRIDO</span></td><td></td></tr>
-        <tr><td>RRLL</td><td>Inspecciones de trabajo</td><td><span class="badge bh">HÍBRIDO</span></td><td></td></tr>
-        <tr><td>RRLL</td><td>Planes de igualdad</td><td><span class="badge bh">HÍBRIDO</span></td><td></td></tr>
-        <tr><td>RRLL</td><td>Planes de diversidad</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>RRLL</td><td>AT y ATSB — DELTA</td><td><span class="badge" style="background:#FDE9D9;color:#9B4410">PLANTA</span></td><td>Valorar descentralizarlo</td></tr>
-        <tr><td>RRLL</td><td>Régimen de becarios</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>RRLL</td><td>Contratos y vencimientos</td><td><span class="badge bh">HÍBRIDO</span></td><td>Según empresa — modelo SADA</td></tr>
-        <tr><td>RRLL</td><td>Jubilados parciales / totales</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>RRLL</td><td>LISMI</td><td><span class="badge bh">HÍBRIDO</span></td><td>Ver qué tareas se pueden descentralizar</td></tr>
-        <tr><td>RRLL</td><td>Control externo y costes</td><td><span class="badge" style="background:#FDE9D9;color:#9B4410">PLANTA</span></td><td></td></tr>
-        <tr><td>RRLL</td><td>Documentación subvenciones</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr class="tr-sec"><td colspan="4">Tiempo y Organización</td></tr>
-        <tr><td>Tiempo</td><td>Calendarios</td><td><span class="badge" style="background:#FDE9D9;color:#9B4410">PLANTA</span></td><td>Valorar descentralizarlo</td></tr>
-        <tr><td>Tiempo</td><td>Agenda</td><td><span class="badge" style="background:#FDE9D9;color:#9B4410">PLANTA</span></td><td>Valorar descentralizarlo</td></tr>
-        <tr><td>Tiempo</td><td>Horarios</td><td><span class="badge" style="background:#FDE9D9;color:#9B4410">PLANTA</span></td><td>Valorar descentralizarlo</td></tr>
-        <tr class="tr-sec"><td colspan="4">Reporting y Sostenibilidad</td></tr>
-        <tr><td>Reporting</td><td>EINF (Información No Financiera)</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Reporting</td><td>Auditorías financieras</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Reporting</td><td>Sostenibilidad</td><td><span class="badge bc">CENTRAL</span></td><td></td></tr>
-        <tr><td>Reporting</td><td>SEDEX</td><td><span class="badge bh">HÍBRIDO</span></td><td></td></tr>
-      </tbody>
-    </table></div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Modelo descentralizado avanzado</p>
-    <p class="section-sub">Para plantas que reúnan los requisitos — referencia: SADA, EMBUTIDOS, PALETAS MARPA</p>
-    <div class="cards-2">
-      <div class="card" style="border-left:4px solid var(--azul-m)"><div class="card-title" style="color:var(--azul-m)">Requisitos mínimos</div><div class="card-body"><strong>Requisito 1:</strong> Plantilla mínima de 500 trabajadores.<br><br><strong>Requisito 2:</strong> Equipo de Personas en planta de al menos 3 personas a tiempo completo con formación suficiente. Toda materia descentralizada se realiza bajo coordinación previa con el equipo de área. No hay autonomía plena: hay delegación con supervisión.</div></div>
-      <div class="card" style="border-left:4px solid var(--verde)"><div class="card-title" style="color:var(--verde)">Materias descentralizables en planta avanzada</div><div class="card-body">• Altas y afiliación (RED) y contratación — sujeto a automatización con robots<br>• Gestión de embargos<br>• Carga de incidencias (a valorar)<br>• Maternidades y paternidades (gestión)<br>• Cartas de sanción leves — con coordinación previa con Central</div></div>
-    </div>
-  </div>
-</div>
-<!-- ═══ FORMACIÓN ═══ -->
-<div id="tab-formacion" class="tab-panel">
-  <div class="content">
-    <p class="section-title">Departamento de Formación</p>
-    <p class="section-sub">Plan Estratégico 2027–2030 · 30 tareas · Gobernanza centralizada · Dimensionamiento ATD</p>
-    <div class="callout azul"><strong>Misión</strong>El Departamento de Formación gestiona de forma centralizada el desarrollo del talento de todas las empresas del Grupo: desde la planificación estratégica hasta la gestión operativa, el cumplimiento normativo ante FUNDAE y la generación de indicadores corporativos. «La pregunta no es dónde se gestiona la formación, sino qué modelo aporta más valor al futuro del Grupo.»</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-n">68.116</div><div class="kpi-l">Horas de formación 2025</div><div class="kpi-d">+150% vs 2019</div></div>
-      <div class="kpi"><div class="kpi-n">1,4M€</div><div class="kpi-l">Inversión formación 2025</div><div class="kpi-d">vs 347.168€ en 2019</div></div>
-      <div class="kpi"><div class="kpi-n">647K€</div><div class="kpi-l">Bonificado FUNDAE 2025</div><div class="kpi-d">+49.090€ trasvase Grupo</div></div>
-      <div class="kpi"><div class="kpi-n">6.875</div><div class="kpi-l">Inscripciones 2025</div><div class="kpi-d">vs 2.310 en 2019</div></div>
-    </div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Los 12 ejes de valor del modelo centralizado</p>
-    <div class="arg-list">
-      <div class="arg-card"><div class="arg-num" style="background:var(--azul)">01</div><div class="arg-body"><strong>Optimización FUNDAE</strong><p>Gestión global del crédito como Grupo de Empresas, con trasvase entre sociedades. Recuperación extra acumulada 2023–2025: 103.523 €. Imposible en modelo descentralizado.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--azul-m)">02</div><div class="arg-body"><strong>Garantía para empresas pequeñas</strong><p>Las empresas sin estructura de DyGP tienen dificultades para gestionar proveedores y cumplir requisitos técnicos de FUNDAE. La centralización garantiza igualdad de acceso.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--verde)">03</div><div class="arg-body"><strong>Itinerarios transversales y cultura corporativa</strong><p>Formación con visión global: liderazgo, mandos intermedios, onboarding, compliance, digitalización e IA. Genera lenguaje común y sentimiento de pertenencia al Grupo.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--violeta)">04</div><div class="arg-body"><strong>Visión estratégica vs. operativa</strong><p>El modelo centralizado alinea la formación con la estrategia corporativa. El modelo descentralizado tiende a la reactividad y al corto plazo.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--naranj)">05</div><div class="arg-body"><strong>Impulso de cambios corporativos</strong><p>Ante implantaciones de ERP, nuevas políticas o cambios organizativos, el área centralizada despliega formación rápida y homogénea. Con descentralización, los ritmos y mensajes divergen.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--teal)">06</div><div class="arg-body"><strong>Economías de escala</strong><p>Compras conjuntas, plataformas y licencias compartidas, catálogo común y proveedores homologados. Menor coste unitario y mayor capacidad de negociación.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--rojo)">07</div><div class="arg-body"><strong>Profesionalización y control de calidad</strong><p>Conocimiento técnico especializado, minimización de riesgos de inspección SEPE, trazabilidad documental completa y evaluación de proveedores.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--azul)">08</div><div class="arg-body"><strong>Medición y reporting real</strong><p>Indicadores corporativos: horas, consumo FUNDAE, coste por empleado, colectivos formados, compliance y retorno. Permite decisiones informadas.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--azul-m)">09</div><div class="arg-body"><strong>Anticipación y visión futura</strong><p>Detección de tendencias: digitalización, IA, relevo generacional, nuevas normativas. Permite pasar de formación reactiva a desarrollo estratégico de capacidades.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--verde)">10</div><div class="arg-body"><strong>Desarrollo y movilidad interna</strong><p>Identificación de alto potencial, itinerarios comunes, promoción interna y movilidad entre empresas. Reduce costes de selección y crea cantera interna.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--violeta)">11</div><div class="arg-body"><strong>Employer branding</strong><p>Un modelo corporativo sólido transmite inversión en personas y cultura de desarrollo. Especialmente relevante para perfiles jóvenes, técnicos y mandos.</p></div></div>
-      <div class="arg-card"><div class="arg-num" style="background:var(--naranj)">12</div><div class="arg-body"><strong>Gestión del conocimiento</strong><p>Conversión de conocimiento interno en activo corporativo: expertos internos como formadores, comunidades de aprendizaje y buenas prácticas entre plantas.</p></div></div>
-    </div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Matriz de tareas — 30 tareas (Central: 28 · Híbrido: 2)</p>
-    <p class="section-sub">●●●●● = impacto crítico · ●●●●○ = medio-alto · ●●●○○ = medio · ●●○○○ = bajo</p>
-    <div class="tbl-wrap"><table class="tbl">
-      <thead><tr><th>Tarea</th><th style="width:60px">Impacto</th><th style="width:90px">Modelo</th><th>Razonamiento / Criterio</th></tr></thead>
-      <tbody>
-        <tr class="tr-sec"><td colspan="4">Gestión de Acciones Formativas (AAFF)</td></tr>
-        <tr><td>Preparación del Plan Formativo Anual</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Diseño corporativo alineado con la estrategia del Grupo. Requiere visión global. Tarea indelegable desde Central.</td></tr>
-        <tr><td>Alta de Acción Formativa (AAFF)</td><td>●●●●○</td><td><span class="badge bh">HÍBRIDO</span></td><td>Formación transversal y soft skills: Central. Formación operativa específica: plantas.</td></tr>
-        <tr><td>Codificar AAFF</td><td>●●●●○</td><td><span class="badge bc">CENTRAL</span></td><td>Nomenclatura homogénea para trazabilidad y reporting corporativo.</td></tr>
-        <tr><td>Registrar AAFF en Agenda corporativa</td><td>●●●●○</td><td><span class="badge bc">CENTRAL</span></td><td>Control centralizado de la oferta formativa del Grupo.</td></tr>
-        <tr><td>Registrar AAFF en SAP (artículo y clase)</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Integridad del dato maestro en SAP. Riesgo alto si diverge.</td></tr>
-        <tr><td>Revisar informe diario</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Control de calidad y cumplimiento normativo diario. Responsabilidad indelegable.</td></tr>
-        <tr><td>Rectificar errores</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Correcciones con impacto en bonificaciones FUNDAE y auditorías SEPE.</td></tr>
-        <tr><td>Generar XML inicio FUNDAE (robot)</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Obligación legal. Errores implican pérdida de bonificación y riesgo de inspección SEPE.</td></tr>
-        <tr><td>Generar documentación en papel</td><td>●●●○○</td><td><span class="badge bc">CENTRAL</span></td><td>Estandarización de plantillas y cumplimiento documental corporativo.</td></tr>
-        <tr><td>Crear carpeta curso en SharePoint</td><td>●●●○○</td><td><span class="badge bc">CENTRAL</span></td><td>Trazabilidad documental centralizada y acceso controlado.</td></tr>
-        <tr><td>Control informes de conectividad</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Requisito FUNDAE crítico. Impacto directo en bonificación.</td></tr>
-        <tr><td>Detalle de facturación y reparto</td><td>●●●●○</td><td><span class="badge bc">CENTRAL</span></td><td>Reparto equitativo entre empresas del Grupo; control financiero centralizado.</td></tr>
-        <tr><td>Control y revisión de facturas</td><td>●●●●○</td><td><span class="badge bc">CENTRAL</span></td><td>Auditoría interna y control del gasto formativo del Grupo.</td></tr>
-        <tr><td>Envío de facturas a empresas</td><td>●●●●○</td><td><span class="badge bc">CENTRAL</span></td><td>Proceso estandarizado para todas las sociedades.</td></tr>
-        <tr><td>Organizar logística presencial (Parcela)</td><td>●●●○○</td><td><span class="badge bc">CENTRAL</span></td><td>Coordinación de espacios, materiales y proveedores a nivel Grupo.</td></tr>
-        <tr class="tr-sec"><td colspan="4">Cierre, Certificación y Cumplimiento Normativo</td></tr>
-        <tr><td>Revisar documentación para cierre</td><td>●●●●●</td><td><span class="badge bh">HÍBRIDO</span></td><td>Revisión central; aportación documental coordinada con planta.</td></tr>
-        <tr><td>Reclamar documentación para cierre</td><td>●●●●○</td><td><span class="badge bc">CENTRAL</span></td><td>Seguimiento sistemático que requiere autoridad y visión global.</td></tr>
-        <tr><td>Finalizar alumnos en SAP</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Cierre oficial en FUNDAE y actualización del historial en SAP. Error implica pérdida de bonificación.</td></tr>
-        <tr><td>Entrar costes en SAP</td><td>●●●●○</td><td><span class="badge bc">CENTRAL</span></td><td>Contabilidad analítica del coste formativo por empresa y trabajador.</td></tr>
-        <tr><td>Revisar alumnos en iFormalia</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Validación de participantes ante FUNDAE. Responsabilidad legal.</td></tr>
-        <tr><td>Revisar bonificación en iFormalia</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Control del crédito consumido vs. asignado. Riesgo financiero.</td></tr>
-        <tr><td>Generar XML cierre FUNDAE (robot)</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Obligación legal de cierre. Impacto directo en inspecciones SEPE.</td></tr>
-        <tr><td>Extraer informes de cierre FUNDAE</td><td>●●●●○</td><td><span class="badge bc">CENTRAL</span></td><td>Evidencia documental para auditorías y reporting corporativo.</td></tr>
-        <tr class="tr-sec"><td colspan="4">Documentación, KPI y Control Económico</td></tr>
-        <tr><td>Extraer diplomas cierre FUNDAE</td><td>●●●○○</td><td><span class="badge bc">CENTRAL</span></td><td>Trazabilidad de certificaciones emitidas a nivel Grupo.</td></tr>
-        <tr><td>Subir informes y diplomas a SharePoint</td><td>●●●○○</td><td><span class="badge bc">CENTRAL</span></td><td>Repositorio único y acceso controlado a documentación oficial.</td></tr>
-        <tr><td>Actualizar seguimiento en Agenda (cierre)</td><td>●●○○○</td><td><span class="badge bc">CENTRAL</span></td><td>Control de la cartera de cursos y estado de ejecución.</td></tr>
-        <tr><td>Generar KPI SAP</td><td>●●●●○</td><td><span class="badge bc">CENTRAL</span></td><td>Indicadores corporativos homogéneos para reporting ejecutivo.</td></tr>
-        <tr><td>Generar KPI iFormalia</td><td>●●●●○</td><td><span class="badge bc">CENTRAL</span></td><td>Seguimiento global de consumo de bonificación y actividad formativa.</td></tr>
-        <tr><td>Asientos contables</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Registro contable con impacto en resultados. Control financiero central.</td></tr>
-        <tr><td>Inspecciones SEPE</td><td>●●●●●</td><td><span class="badge bc">CENTRAL</span></td><td>Responsabilidad penal y administrativa. Gestión indelegable desde Central.</td></tr>
-      </tbody>
-    </table></div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Aprovechamiento del crédito FUNDAE — Trasvase entre sociedades</p>
-    <p class="section-sub">Únicamente empresas cuya bonificación ejecutada supera el crédito individualmente asignado. El exceso se cubre mediante trasvase, posible exclusivamente en el perfil Grupo de Empresas de FUNDAE.</p>
-    <div class="tv-grid">
-      <div><p style="font-weight:600;font-size:.84rem;margin-bottom:.6rem">Ejercicio 2023 — 5 empresas</p><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Empresa</th><th>Bonificación €</th><th>Crédito €</th><th>Exceso €</th></tr></thead><tbody><tr><td>CAVI</td><td>25.574,39</td><td>12.787,20</td><td><strong>12.787,19</strong></td></tr><tr><td>ASAN</td><td>18.145,05</td><td>10.887,03</td><td><strong>7.258,02</strong></td></tr><tr><td>ICPR</td><td>10.480,35</td><td>6.288,21</td><td><strong>4.192,14</strong></td></tr><tr><td>META</td><td>13.905,56</td><td>13.022,53</td><td><strong>883,03</strong></td></tr><tr><td>FRIM</td><td>9.420,25</td><td>9.320,99</td><td><strong>99,26</strong></td></tr><tr style="background:#D5EFE2"><td colspan="3"><strong>Total recuperado 2023</strong></td><td><strong>25.219,64 €</strong></td></tr></tbody></table></div></div>
-      <div><p style="font-weight:600;font-size:.84rem;margin-bottom:.6rem">Ejercicio 2024 — 7 empresas</p><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Empresa</th><th>Bonificación €</th><th>Crédito €</th><th>Exceso €</th></tr></thead><tbody><tr><td>ASAN</td><td>25.348,41</td><td>15.209,05</td><td><strong>10.139,36</strong></td></tr><tr><td>TRAN</td><td>51.650,43</td><td>43.450,38</td><td><strong>8.200,05</strong></td></tr><tr><td>CAVI</td><td>23.042,16</td><td>16.855,01</td><td><strong>6.187,15</strong></td></tr><tr><td>ICPR</td><td>8.778,68</td><td>7.070,60</td><td><strong>1.708,08</strong></td></tr><tr><td>FRIC</td><td>14.036,40</td><td>12.508,79</td><td><strong>1.527,61</strong></td></tr><tr><td>FRIM</td><td>10.385,73</td><td>9.438,36</td><td><strong>947,37</strong></td></tr><tr><td>CAFR</td><td>8.092,83</td><td>7.588,69</td><td><strong>504,14</strong></td></tr><tr style="background:#D5EFE2"><td colspan="3"><strong>Total recuperado 2024</strong></td><td><strong>29.213,76 €</strong></td></tr></tbody></table></div></div>
-      <div><p style="font-weight:600;font-size:.84rem;margin-bottom:.6rem">Ejercicio 2025 — 6 empresas</p><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Empresa</th><th>Bonificación €</th><th>Crédito €</th><th>Exceso €</th></tr></thead><tbody><tr><td>GCOM</td><td>47.435,91</td><td>29.923,45</td><td><strong>17.512,46</strong></td></tr><tr><td>PATE</td><td>46.388,71</td><td>29.232,65</td><td><strong>17.156,06</strong></td></tr><tr><td>CAVI</td><td>28.295,04</td><td>17.967,95</td><td><strong>10.327,09</strong></td></tr><tr><td>ASAN</td><td>19.542,69</td><td>17.943,84</td><td><strong>1.598,85</strong></td></tr><tr><td>FRIC</td><td>23.372,64</td><td>22.080,65</td><td><strong>1.291,99</strong></td></tr><tr><td>CAFR</td><td>9.521,27</td><td>8.317,96</td><td><strong>1.203,31</strong></td></tr><tr style="background:#D5EFE2"><td colspan="3"><strong>Total recuperado 2025</strong></td><td><strong>49.089,76 €</strong></td></tr></tbody></table></div></div>
-    </div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Plan Estratégico 2027–2030 — Cuatro ejes</p>
-    <div class="ejes-grid">
-      <div class="eje" style="border-top:3px solid var(--azul)"><div class="eje-n" style="color:var(--azul)">Eje 1</div><div class="eje-t">Eficiencia económica</div><div class="eje-b">Maximizar bonificación FUNDAE a nivel Grupo · Reducir coste unitario · Control presupuestario y reporting financiero · Cumplimiento SEPE sin incidencias</div></div>
-      <div class="eje" style="border-top:3px solid var(--naranj)"><div class="eje-n" style="color:var(--naranj)">Eje 2</div><div class="eje-t">Desarrollo del talento</div><div class="eje-b">Itinerarios de liderazgo y mandos intermedios · Onboarding corporativo homogéneo · Detección y desarrollo de alto potencial · Plan Formativo por competencias del Grupo</div></div>
-      <div class="eje" style="border-top:3px solid var(--teal)"><div class="eje-n" style="color:var(--teal)">Eje 3</div><div class="eje-t">Transformación digital</div><div class="eje-b">LMS corporativo y Campus del Grupo · Automatización de procesos FUNDAE (robot) · People Analytics en SAP SF · Formación en IA, digitalización y nuevas competencias</div></div>
-      <div class="eje" style="border-top:3px solid var(--violeta)"><div class="eje-n" style="color:var(--violeta)">Eje 4</div><div class="eje-t">Cohesión y cultura</div><div class="eje-b">Formación transversal que genera identidad de Grupo · Gestión del conocimiento interno como activo · Employer branding · Reducción de silos y buenas prácticas entre plantas</div></div>
-    </div>
-    <div class="hl">✅ <strong>Dimensionamiento recomendado (ATD):</strong> equipo central de 4 personas — 1 Responsable de Área + 2 Técnicos/as Formación y FUNDAE + 1 Técnico/a Formación Digital y KPI. Ratio ATD 2025: 1:212 para 8.000 empleados → 8–9 personas. La propuesta de 4 es objetivamente moderada y sostenible.</div>
-  </div>
-</div>
-<!-- ═══ SELECCIÓN · TALENTO · C&B ═══ -->
-<div id="tab-seleccion" class="tab-panel">
-  <div class="content">
-    <p class="section-title">Selección · Talento · Compensación &amp; Beneficios · Empresa Saludable</p>
-    <p class="section-sub">Plan Estratégico DyGP 2027–2030 · 32 actividades · 4 subáreas interdependientes</p>
-    <div class="cards-2">
-      <div class="card" style="border-left:4px solid var(--azul-m)"><div class="card-title" style="color:var(--azul-m)">A — Selección e Incorporación (10 actividades)</div><div class="card-body">Atraer, evaluar e incorporar el talento correcto. Un error puede costar hasta el <strong>150% del salario anual</strong> del puesto.<br><br>Actividades clave: Definición de perfiles · Selección y evaluación conductual (DISC + IA) · Employer branding y PVE · ATS corporativo · Cantera universitaria y FP Dual · Programa de referidos · Onboarding y buddy · Pack de bienvenida · Acuerdos ETT · Negociación con consultoras</div></div>
-      <div class="card" style="border-left:4px solid var(--naranj)"><div class="card-title" style="color:var(--naranj)">B — Gestión del Talento (10 actividades)</div><div class="card-body">Identificar, desarrollar y retener el talento crítico. Mayor ROI del área: prevenir la rotación cuesta <strong>5–10x menos</strong> que gestionar la sustitución. Ahorro potencial &gt;2M€/año.<br><br>Actividades clave: Top Employer · Planes de carrera · Sucesiones · Desarrollo del liderazgo · People analytics · Movilidad interna · Evaluación del desempeño · Gestión del conocimiento · Offboarding · Clima organizativo</div></div>
-      <div class="card" style="border-left:4px solid var(--verde)"><div class="card-title" style="color:var(--verde)">C — Compensación y Beneficios (6 actividades)</div><div class="card-body">Modelo retributivo equitativo, competitivo y coherente. La compensación es la <strong>segunda razón de fuga de talento</strong>: una brecha del 10% puede costar el 25% del talento clave en 18 meses.<br><br>Actividades clave: Mapa retributivo y benchmarking · Revisión salarial anual · Retribución variable (KPIs) · Variables mensuales/trimestrales · Retribución flexible · Beneficios no monetarios</div></div>
-      <div class="card" style="border-left:4px solid var(--violeta)"><div class="card-title" style="color:var(--violeta)">D — Empresa Saludable (6 actividades)</div><div class="card-body">Bienestar integral como condición de rendimiento sostenible. <strong>6 años Top Employer</strong>. Los 6 pilares están alineados con OMS, INSST y ENWHP.<br><br>Pilares: Entorno saludable · Bienestar emocional (FPSICO 75%) · Recursos personales de la salud · Participación en la comunidad (55% solidaria) · Salud financiera (nuevo 2025) · Certificaciones REES y Corazón</div></div>
-    </div>
-    <div class="callout verde"><strong>Principio de interdependencia</strong>Estas cuatro subáreas son complementarias e interdependientes: ninguna puede funcionar de forma aislada sin deteriorar el conjunto del modelo. Una compensación equitativa sin planes de carrera no retiene. Un programa de bienestar sin selección de calidad no construye cultura. La fortaleza reside en que las cuatro subáreas se refuerzan mutuamente.</div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Matriz de tareas — 32 actividades</p>
-    <div class="tbl-wrap"><table class="tbl">
-      <thead><tr><th>Ref.</th><th>Tarea / Actividad</th><th style="width:55px">Impacto</th><th style="width:150px">Modelo</th><th>Razonamiento</th></tr></thead>
-      <tbody>
-        <tr class="tr-sec"><td colspan="5">A — Selección e Incorporación de Talento</td></tr>
-        <tr><td>A1</td><td>Definición de perfiles y detección de necesidades</td><td>●●●●○</td><td><span class="badge bh">Central + Gestores</span></td><td>Central diseña la metodología; los Gestores asesoran al manager. DPTS: plantilla única validada por Calidad central. Causa núm. 1 de rotación temprana: mala definición de perfil.</td></tr>
-        <tr><td>A2</td><td>Proceso de selección y evaluación conductual</td><td>●●●●●</td><td><span class="badge bh">Central + Planta</span></td><td>Central lidera perfiles técnicos/gestión; Planta gestiona la selección de operarios. Evaluación DISC e IA desde Central aportan rigor y reducen el sesgo.</td></tr>
-        <tr><td>A3</td><td>Employer branding y propuesta de valor al empleado (PVE)</td><td>●●●●○</td><td><span class="badge bc">Central</span></td><td>Central diseña y mantiene la PVE corporativa; los Gestores la activan. Sin PVE corporativa, cada empresa compite por separado con menos potencia y mayor coste.</td></tr>
-        <tr><td>A4</td><td>Gestión de candidaturas y ATS corporativo</td><td>●●●○○</td><td><span class="badge bc">Central</span></td><td>Base de datos de talento centralizada. Evita duplicidades y permite reutilizar candidatos entre empresas.</td></tr>
-        <tr><td>A5</td><td>Cantera universitaria y FP Dual corporativa</td><td>●●●●○</td><td><span class="badge bc">Central</span></td><td>Central gestiona acuerdos con universidades y centros de FP. Pipeline de talento a 3–5 años con bajo coste de adquisición.</td></tr>
-        <tr><td>A6</td><td>Programa de referidos internos</td><td>●●●○○</td><td><span class="badge bc">Central</span></td><td>Central diseña la política, los incentivos y gestiona la mecánica. El talento referido tiene el doble de probabilidad de permanecer.</td></tr>
-        <tr><td>A7</td><td>Onboarding: política de buddy corporativa</td><td>●●●●○</td><td><span class="badge bh">Central + Planta</span></td><td>Central diseña la política; Planta la aplica. Un buen onboarding reduce la rotación temprana hasta un 50%.</td></tr>
-        <tr><td>A8</td><td>Pack de bienvenida y protocolo de acogida</td><td>●●●○○</td><td><span class="badge bh">Central + Planta</span></td><td>Central estandariza el protocolo; Planta lo ejecuta. Una acogida inconsistente deteriora la primera impresión del Grupo.</td></tr>
-        <tr><td>A9</td><td>ETT: Negociación de acuerdos globales</td><td>●●●●○</td><td><span class="badge bc">Central</span></td><td>El volumen agregado del Grupo permite coeficientes más ajustados y condiciones preferenciales que ningún centro obtendría de forma aislada.</td></tr>
-        <tr><td>A10</td><td>Negociación con consultoras: acuerdos marco</td><td>●●●●○</td><td><span class="badge bc">Central</span></td><td>Acuerdos marco a nivel Grupo: honorarios nivelados, garantías de reposición y tiempos de respuesta homogéneos en todos los procesos del Grupo.</td></tr>
-        <tr class="tr-sec"><td colspan="5">B — Gestión del Talento</td></tr>
-        <tr><td>B0</td><td>Certificación Top Employer</td><td>●●●●●</td><td><span class="badge bc">Central</span></td><td>Central coordina el proceso anual de auditoría. <strong>6 años consecutivos certificado</strong> — diferencial reconocido globalmente frente a competidores del sector agroalimentario.</td></tr>
-        <tr><td>B1</td><td>Mapa de planes de carrera / Mapa de talento</td><td>●●●●●</td><td><span class="badge bc">Central</span></td><td>Central diseña los itinerarios; los Gestores los activan. Las organizaciones con planes de carrera estructurados reducen la rotación en perfiles clave entre un <strong>20% y un 35%</strong> (SHRM 2025).</td></tr>
-        <tr><td>B2</td><td>Modelo de planificación de sucesiones</td><td>●●●●●</td><td><span class="badge bh">Central + Gestores</span></td><td>Central diseña el modelo; los Gestores lo activan. La promoción interna es <strong>3–5x más eficiente en coste</strong> que la contratación externa.</td></tr>
-        <tr><td>B3</td><td>Programa de desarrollo del liderazgo / Promociones</td><td>●●●●●</td><td><span class="badge bh">Central + Gestores</span></td><td>Central diseña y coordina; los Gestores hacen el seguimiento. Los líderes del Grupo de los próximos 10 años están hoy en la organización.</td></tr>
-        <tr><td>B4</td><td>People analytics y predicción de rotación</td><td>●●●●●</td><td><span class="badge bc">Central</span></td><td>Actuar preventivamente en rotación es <strong>5–10x más barato</strong> que gestionar la sustitución. Ahorro potencial &gt;2M€/año.</td></tr>
-        <tr><td>B5</td><td>Movilidad interna y crossboarding</td><td>●●●●○</td><td><span class="badge bh">Central + Gestores + Planta</span></td><td>Central define la política; los Gestores identifican oportunidades; Planta facilita la operativa. Es la palanca de retención más barata.</td></tr>
-        <tr><td>B6</td><td>Evaluación del desempeño corporativo</td><td>●●●●○</td><td><span class="badge bh">Central + Gestores + Planta</span></td><td>Central diseña el modelo; los Gestores lo conectan con la estrategia; Planta garantiza su aplicación. Sin modelo común, las decisiones de promoción generan agravios entre empresas.</td></tr>
-        <tr><td>B7</td><td>Gestión del conocimiento crítico y relevo generacional</td><td>●●●●●</td><td><span class="badge bh">Central + Gestores</span></td><td>En los próximos 4 años, una parte significativa del conocimiento crítico del Grupo está en riesgo. <strong>No actuar tiene un coste irreversible.</strong></td></tr>
-        <tr><td>B8</td><td>Offboarding: procedimiento y ventana de intervención</td><td>●●●●○</td><td><span class="badge bh">Central + Gestores + Planta</span></td><td>La mayoría de bajas voluntarias son evitables si se actúa en los primeros días. Sin procedimiento, se pierde la ventana de intervención.</td></tr>
-        <tr><td>B9</td><td>Medición del clima organizativo y planes de acción</td><td>●●●●○</td><td><span class="badge bh">Central + Gestores</span></td><td>Central consolida resultados; los Gestores proponen planes de acción. Se valora la implantación de Qualtrics para unificar la medición en todas las empresas.</td></tr>
-        <tr class="tr-sec"><td colspan="5">C — Políticas de Compensación y Beneficios</td></tr>
-        <tr><td>C1</td><td>Mapa retributivo y benchmarking de mercado</td><td>●●●●●</td><td><span class="badge bh">Central + Gestores</span></td><td>Una brecha del <strong>10%</strong> respecto al mercado puede traducirse en pérdida del <strong>15–25%</strong> del talento clave en 18 meses.</td></tr>
-        <tr><td>C2</td><td>Revisión anual del salario fijo</td><td>●●●●○</td><td><span class="badge bc">Central</span></td><td>Sin proceso corporativo, cada empresa actúa con criterios dispares. La coherencia interna es la base de la percepción de equidad.</td></tr>
-        <tr><td>C3</td><td>Retribución variable anual vinculada a KPIs</td><td>●●●●●</td><td><span class="badge bh">Central + Gestores</span></td><td>Sin variable corporativo bien diseñado, el Grupo prescinde de esta palanca de alineamiento.</td></tr>
-        <tr><td>C4</td><td>Alineamiento de variables mensuales y trimestrales</td><td>●●●○○</td><td><span class="badge bc">Central</span></td><td>Variables mal diseñados generan comportamientos no deseados y percepción de injusticia.</td></tr>
-        <tr><td>C5</td><td>Plan de retribución flexible corporativo</td><td>●●●●○</td><td><span class="badge bc">Central</span></td><td>Las economías de escala corporativas reducen el coste unitario sin incrementar el coste salarial proporcionalmente.</td></tr>
-        <tr><td>C6</td><td>Política de beneficios no monetarios diferenciadores</td><td>●●●●○</td><td><span class="badge bh">Central + Gestores</span></td><td>Son el componente de la PVE con mayor impacto percibido a menor coste. Sin política clara, el Grupo pierde frente a competidores que sí la comunican.</td></tr>
-        <tr class="tr-sec"><td colspan="5">D — Empresa Saludable</td></tr>
-        <tr><td>D1</td><td>Pilar 1: Entorno de trabajo saludable</td><td>●●●●○</td><td><span class="badge bh">Central + Planta</span></td><td>Central diseña (Espai Cardioprotegit); Planta ejecuta. Integración preventiva MEDIA-ALTA. Impacto directo en absentismo y siniestralidad.</td></tr>
-        <tr><td>D2</td><td>Pilar 2: Bienestar emocional</td><td>●●●●●</td><td><span class="badge bh">Central + Gestores + Planta</span></td><td>FPSICO: del <strong>68% (2022) al 75% (2024)</strong>. 70% de empleados valora positivamente las mejoras.</td></tr>
-        <tr><td>D3</td><td>Pilar 3: Recursos personales de la salud</td><td>●●●●○</td><td><span class="badge bh">Central + Planta</span></td><td>Motivación para actividad física: del 28% al 35% (2022–2024). El 85% indica haber mejorado hábitos de vida.</td></tr>
-        <tr><td>D4</td><td>Pilar 4: Participación en la comunidad</td><td>●●●●○</td><td><span class="badge bh">Central + Gestores + Planta</span></td><td>Programa GRANS AMICS GVC. <strong>55% de empleados participa en acciones solidarias</strong> (objetivo inicial: 20%). 89% se siente implicado.</td></tr>
-        <tr><td>D5</td><td>Pilar 5: Salud financiera (nuevo 2025)</td><td>●●●○○</td><td><span class="badge bh">Central + Gestores</span></td><td>Primer webinar con CEOE: 70 participantes. Posiciona al Grupo como empleador que acompaña más allá del salario.</td></tr>
-        <tr><td>D6</td><td>Pilar 6: Certificaciones REES + Corazón</td><td>●●●●○</td><td><span class="badge bc">Central</span></td><td>Central gestiona ambas: REES (Ministerio de Sanidad) y Programa Corazón (Fundación Española del Corazón). Palanca de atracción de talento de alto impacto y bajo coste.</td></tr>
-      </tbody>
-    </table></div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Dimensionamiento Central DyGP — Situación actual vs. objetivo</p>
-    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Área</th><th>Situación actual</th><th>Objetivo</th><th>Cambio clave</th></tr></thead><tbody>
-      <tr><td><strong>Selección + Talento</strong></td><td>2 personas + responsable con carga parcial</td><td>5 técnicos/as · 1 por negocio · dedicación exclusiva</td><td>De cobertura parcial a especialistas dedicados por unidad de negocio</td></tr>
-      <tr><td><strong>Compensación y Beneficios</strong></td><td>1 persona cubre las 4 subáreas</td><td>2 especialistas C&amp;B · cobertura transversal</td><td>Función sin rol dedicado → especialización real</td></tr>
-      <tr><td><strong>Empresa Saludable</strong></td><td>1 persona cubre las 4 subáreas</td><td>Equipo actual autónomo + soporte puntual de S&amp;T</td><td>Se libera la persona que actualmente cubre múltiples áreas</td></tr>
-      <tr><td><strong>Responsable DyGP</strong></td><td>Responsable con carga directa en S&amp;T</td><td>Dirección jugadora: coordina + selección propia + Talento GCOM</td><td>Transición progresiva hacia rol estratégico</td></tr>
-      <tr style="background:#D5EFE2"><td><strong>TOTAL</strong></td><td><strong>4 personas · ratio 1:2.250</strong></td><td><strong>8 + equipo actual Empresa Saludable</strong></td><td><strong>Ratio objetivo: 1:450 perfiles técnicos y de gestión</strong></td></tr>
-    </tbody></table></div>
-  </div>
-</div>
-
-<!-- ═══ IT-DyGP ═══ -->
-<div id="tab-it" class="tab-panel">
-  <div class="content">
-    <p class="section-title">IT-DyGP — Estrategia de Gobernanza</p>
-    <p class="section-sub">33 tareas · Cuatro cuadrantes: CoE · CSC · Gestor de Negocio · Planta</p>
-    <div class="nivel-row">
-      <div class="nivel-card" style="background:var(--azul)"><div class="nivel-name">CoE — Central</div><div class="nivel-role">13 tareas</div><div class="nivel-desc">Estrategia, gobierno y conocimiento experto. Proyectos transversales, IA, People Analytics, ciberseguridad, identidades y accesos, dashboards ejecutivos.</div></div>
-      <div class="nivel-card" style="background:var(--teal)"><div class="nivel-name">CSC — Central</div><div class="nivel-role">11 tareas</div><div class="nivel-desc">Procesos transaccionales de alto volumen. SAP SF, SILTRA, nóminas, Modelo 190, firma digital, gestión de proveedores SAP, ticketing, Business Intelligence.</div></div>
-      <div class="nivel-card" style="background:var(--naranj)"><div class="nivel-name">Gestor de Negocio</div><div class="nivel-role">6 tareas</div><div class="nivel-desc">Gobierno central con ejecución local. Campus Farm (formación granjeros), portal del empleado (autoservicio SAP SF).</div></div>
-      <div class="nivel-card" style="background:var(--verde)"><div class="nivel-name">Planta — Soporte Local</div><div class="nivel-role">3 tareas</div><div class="nivel-desc">Operativa de proximidad y atención directa al empleado. Helpdesk DyGP N1, puesta en marcha y mantenimiento de terminales de fichaje.</div></div>
-    </div>
-    <div class="tbl-wrap"><table class="tbl">
-      <thead><tr><th>Tarea</th><th>Área funcional</th><th style="width:130px">Cuadrante</th><th style="width:55px">Impacto</th><th>Razonamiento</th></tr></thead>
-      <tbody>
-        <tr class="tr-sec"><td colspan="5">Centro de Excelencia (CoE) — Estrategia, gobierno y conocimiento experto</td></tr>
-        <tr class="tr-sub"><td colspan="5">Estrategia y Proyectos</td></tr>
-        <tr><td>Proyectos transversales IT-DyGP</td><td>Proyectos</td><td><span class="badge bcoe">CoE — Central</span></td><td>●●●●●</td><td>Afectan a toda la organización. Visión global, recursos dedicados y PMO.</td></tr>
-        <tr><td>Proyectos de mejora de procesos DyGP</td><td>Proyectos</td><td><span class="badge bcoe">CoE — Central</span></td><td>●●●●○</td><td>Reingeniería de procesos corporativos con metodología y gobierno desde CoE.</td></tr>
-        <tr><td>Desarrollos e integraciones con IA</td><td>Innovación</td><td><span class="badge bcoe">CoE — Central</span></td><td>●●●●●</td><td>Chatbots DyGP, automatización, analítica predictiva. Governance de datos y ética IA centralizados.</td></tr>
-        <tr class="tr-sub"><td colspan="5">Seguridad e Identidades</td></tr>
-        <tr><td>Ciberseguridad y protección de datos</td><td>Seguridad</td><td><span class="badge bcoe">CoE — Central</span></td><td>●●●●●</td><td>RGPD, accesos a datos sensibles y auditorías. Responsabilidad indelegable del CoE.</td></tr>
-        <tr><td>Gestión de identidades y accesos (IAM/SSO)</td><td>Seguridad</td><td><span class="badge bcoe">CoE — Central</span></td><td>●●●●○</td><td>Altas, bajas y permisos en SAP SF, SharePoint. Proceso y herramienta centrales.</td></tr>
-        <tr class="tr-sub"><td colspan="5">People Analytics</td></tr>
-        <tr><td>Gobierno y arquitectura de datos DyGP</td><td>People Analytics</td><td><span class="badge bcoe">CoE — Central</span></td><td>●●●●●</td><td>Modelo de datos corporativo, fuentes de verdad y calidad del dato. Base de toda iniciativa analítica.</td></tr>
-        <tr><td>Dashboards y reporting ejecutivo DyGP</td><td>People Analytics</td><td><span class="badge bcoe">CoE — Central</span></td><td>●●●●●</td><td>Cuadros de mando en SAP SF (headcount, coste, variación de plantilla). Visión uniforme para todas las empresas.</td></tr>
-        <tr><td>Calidad del dato y mantenimiento de maestros ★</td><td>People Analytics</td><td><span class="badge bcoe">CoE — Central</span></td><td>●●●●○</td><td>Limpieza y homogeneización de datos maestros en SAP SF para garantizar fiabilidad de los informes.</td></tr>
-        <tr><td>Compensación y beneficios (estratégico)</td><td>Compensación</td><td><span class="badge bcoe">CoE — Central</span></td><td>●●●●○</td><td>Política salarial corporativa, benchmarking y equidad interna. Coordinación con el área C&amp;B de DyGP.</td></tr>
-        <tr class="tr-sec"><td colspan="5">Centro de Servicios Compartidos (CSC) — Procesos transaccionales de alto volumen</td></tr>
-        <tr class="tr-sub"><td colspan="5">Sistemas HCM y Control de Tiempos</td></tr>
-        <tr><td>Implantación SAP SuccessFactors (nuevas empresas)</td><td>Sistemas HCM</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●●●</td><td>Coherencia de configuración, licencias y arquitectura únicos. Riesgo alto si diverge.</td></tr>
-        <tr><td>Gestión mejoras SAP — gestión del tiempo</td><td>Sistemas HCM</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●●●</td><td>Integraciones con SAP y nómina exigen configuración centralizada.</td></tr>
-        <tr><td>Implantación sistema control de tiempos ★</td><td>Sistemas HCM</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●●●</td><td>Puesta en marcha de fichaje/control horario. Diseño de turnos, integraciones y formación coordinados desde el CSC.</td></tr>
-        <tr class="tr-sub"><td colspan="5">Nómina y Administración Legal</td></tr>
-        <tr><td>Soporte cálculo de nóminas</td><td>Compensación</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●●●</td><td>Control de costes, cumplimiento normativo y auditoría requieren proceso centralizado y trazable.</td></tr>
-        <tr><td>Soporte sistemas SILTRA / TGSS</td><td>Admin. DyGP</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●●○</td><td>Plazos legales nacionales y responsabilidad ante la TGSS.</td></tr>
-        <tr><td>Soporte Modelo 190 (IRPF)</td><td>Admin. DyGP</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●●○</td><td>Declaración anual con normativa fiscal uniforme. Impacto legal y reputacional.</td></tr>
-        <tr><td>Firma digital (contratos y documentos DyGP)</td><td>Innovación</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●●○</td><td>Plataforma única con validez legal (eIDAS). CSC define proveedor, flujos y custodia.</td></tr>
-        <tr class="tr-sub"><td colspan="5">Proveedores y Soporte Tecnológico</td></tr>
-        <tr><td>Gestión de proveedores de software / partners SAP ★</td><td>Proveedores</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●●○</td><td>Negociación de contratos, SLAs y licencias. Interlocución técnica y comercial centralizada.</td></tr>
-        <tr><td>Seguimiento de incidencias con proveedores ★</td><td>Proveedores</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●●○</td><td>Control del backlog, escalado y resolución. Evita gestión fragmentada.</td></tr>
-        <tr><td>Sistema de ticketing (gestión y evolución)</td><td>Soporte IT</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●○○</td><td>Herramienta, SLAs y flujos homogéneos. Planta opera tickets; CSC gobierna la herramienta.</td></tr>
-        <tr><td>Business Intelligence y reporting DyGP</td><td>Analítica</td><td><span class="badge bcsc">CSC — Central</span></td><td>●●●●○</td><td>Operativa BI; estrategia en CoE.</td></tr>
-        <tr class="tr-sec"><td colspan="5">Gestor de Negocio (BP) — Gobierno central con ejecución local</td></tr>
-        <tr><td>Soporte Campus Farm — formación para granjeros ★</td><td>Formación</td><td><span class="badge bbp">Gestor Negocio</span></td><td>●●●●○</td><td>Central gestiona la herramienta y mide resultados; el Gestor coordina y adapta al contexto.</td></tr>
-        <tr><td>Portal del empleado (autoservicio SAP SF)</td><td>Sistemas HCM</td><td><span class="badge bbp">Gestor Negocio</span></td><td>●●●○○</td><td>Evolución desde Central; soporte y comunicación desde el Gestor de Negocio.</td></tr>
-        <tr class="tr-sec"><td colspan="5">Planta — Operativa de proximidad</td></tr>
-        <tr><td>Soporte al usuario — helpdesk DyGP (N1)</td><td>Soporte IT</td><td><span class="badge bloc">Planta</span></td><td>●●○○○</td><td>Primer nivel de atención. Requiere proximidad física y conocimiento local.</td></tr>
-        <tr><td>Puesta en marcha de terminales de fichaje</td><td>Infraestructura</td><td><span class="badge bloc">Planta</span></td><td>●●○○○</td><td>Instalación y mantenimiento físico on-site. Configuración inicial guiada desde el CSC.</td></tr>
-      </tbody>
-    </table></div>
-    <div class="callout naranj"><strong>★ Tareas incorporadas recientemente al equipo IT-DyGP</strong>Albert reporta directamente a Miguel por ser perfil compartido con Administración. Posiciones por cubrir: Técnico de Datos DyGP (CSC) · Técnico de Soporte en Planta · Gestor Negocio ITP — Servicios Tecnológicos.</div>
-  </div>
-</div>
-<!-- ═══ TAREAS ═══ -->
-<div id="tab-tareas" class="tab-panel">
-  <div class="content">
-    <p class="section-title">Distribución de Tareas DyGP</p>
+e Tareas DyGP</p>
     <p class="section-sub">Responsabilidades por nivel funcional · R = Responsable (dueño del resultado) · C = Colabora (sin ownership) · — = Sin participación</p>
     <div class="nivel-row">
       <div class="nivel-card" style="background:var(--azul)"><div class="nivel-name">Central</div><div class="nivel-role">Diseña · Decide · Lidera</div><div class="nivel-desc">Políticas, estándares, People Analytics, C&amp;B, Plan de Igualdad, negociación colectiva.</div></div>
@@ -732,7 +70,7 @@ mark.hl{background:#FDE68A;border-radius:2px;padding:0 1px;}
     </div>
   </div>
 </div>
-
+ 
 <!-- ═══ SÍNTESIS ═══ -->
 <div id="tab-sintesis" class="tab-panel">
   <div class="content">
@@ -794,7 +132,7 @@ mark.hl{background:#FDE68A;border-radius:2px;padding:0 1px;}
     <div class="callout azul" style="margin-top:1rem"><strong>Conclusión</strong>«El modelo centralizado no es una opción ideológica: es la única que permite convertir la función de personas en una palanca estratégica al servicio del crecimiento del Grupo.» — Grup Vall Companys · DyGP · Junio 2026</div>
   </div>
 </div>
-
+ 
 <script>
 // ── TAB SWITCHING ────────────────────────────────────────────────
 function switchTab(id) {
@@ -805,7 +143,7 @@ function switchTab(id) {
     if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
   });
 }
-
+ 
 // ── CSC SCORE ────────────────────────────────────────────────────
 const SCORES_CSC = [
   ["Velocidad de respuesta a incidencias de planta","Negocio","hi","La prioridad la fija quien sufre la incidencia, no una cola compartida entre cinco áreas."],
@@ -827,12 +165,12 @@ const SCORES_CSC = [
     tb.appendChild(tr);
   });
 })();
-
+ 
 // ── TAREAS DATA ───────────────────────────────────────────────────
 // Columnas: Central | Gestor Negocio (BP) | CSC | Planta
 // Fuentes reconciliadas: criterio unificado tarea a tarea
 const TAREAS = [
-
+ 
   // ── ADMINISTRACIÓN DE PERSONAL Y SS
   ["ADMINISTRACIÓN DE PERSONAL Y SS","Gestión de altas/bajas en TGSS y mutua (AFI, TA1/TA2)","—","—","R","C","Planta comunica la necesidad; CSC ejecuta la afiliación en sistema"],
   ["","Liquidación de cuotas SS y gestión de errores SILTRA","—","—","R","—","CSC íntegramente. Responsabilidad legal ante TGSS."],
@@ -850,7 +188,7 @@ const TAREAS = [
   ["","Alta de empleado en sistema (contrato, firma digital)","R","R","C","C","Central define protocolos; Gestor Negocio solicita el alta; CSC ejecuta en SEPE; Planta firma presencialmente"],
   ["","SLD - CRETA (comunicaciones a SEPE)","—","—","R","—","CSC ejecuta las comunicaciones legales al SEPE íntegramente"],
   ["","Contabilidad: TXT, libro contable de personal","R","—","C","—","Central aprueba; CSC genera los ficheros de contabilidad analítica"],
-
+ 
   // ── NÓMINA Y RETRIBUCIÓN
   ["NÓMINA Y RETRIBUCIÓN","Cierre de nómina mensual, conciliación y fichero SEPA","C","—","R","C","CSC calcula y cierra; Planta comunica incidencias del mes; Central supervisa"],
   ["","Cálculo de nómina: conceptos, retros y retroactivos","—","—","R","—","CSC íntegramente. Proceso auditado y centralizado."],
@@ -862,7 +200,7 @@ const TAREAS = [
   ["","IRPF: regularización, modelo 190 y declaración anual","R","—","C","—","Central aprueba los criterios; CSC ejecuta la declaración. Impacto legal y reputacional."],
   ["","Asientos contables de personal","R","—","C","—","CSC genera los asientos; Central supervisa el impacto en resultados. Indelegable."],
   ["","Gestión de pagos en especie","—","R","R","—","Gestor Negocio valida el beneficio; CSC gestiona, declara y aplica en nómina"],
-
+ 
   // ── CONTRATOS Y RELACIONES LABORALES
   ["CONTRATOS Y RELACIONES LABORALES","Contratación: alta SEPE, firma y comunicaciones legales","—","R","C","R","Gestor Negocio solicita y supervisa; CSC registra en SEPE; Planta ejecuta la firma presencial"],
   ["","Prórrogas, conversiones de contrato y teletrabajo","—","R","C","R","Gestor Negocio valida la decisión; CSC formaliza en sistema; Planta propone y firma"],
@@ -885,7 +223,7 @@ const TAREAS = [
   ["","Documentación para subvenciones de empleo","R","C","C","—","Central lidera; Gestor Negocio aporta datos del área; CSC recopila y tramita"],
   ["","EINF, SEDEX, sostenibilidad y reporting no financiero","R","R","—","—","Central elabora; Gestor Negocio aporta los datos e indicadores de su área"],
   ["","Auditorías financieras y laborales","R","R","C","—","Central coordina; Gestor Negocio aporta documentación del área; CSC prepara los ficheros"],
-
+ 
   // ── SELECCIÓN Y ONBOARDING
   ["SELECCIÓN Y ONBOARDING","Negociación de acuerdos marco con ETTs y consultoras","R","R","—","—","Central lidera la negociación global; Gestor Negocio valida las necesidades de su área"],
   ["","Employer branding y propuesta de valor al empleado (PVE)","R","R","—","—","Central diseña y mantiene la PVE corporativa; Gestor Negocio la activa y comunica en cada unidad"],
@@ -900,7 +238,7 @@ const TAREAS = [
   ["","Pack de bienvenida y protocolo de acogida","R","R","—","C","Central estandariza el contenido; Gestor Negocio adapta al contexto; Planta entrega y ejecuta"],
   ["","Seguimiento del período de prueba","—","R","—","C","Gestor Negocio hace el seguimiento con el manager; Planta informa de la evolución diaria"],
   ["","Diseño y ejecución de entrevistas de salida","R","R","—","C","Central diseña el proceso; Gestor Negocio lo activa y analiza resultados; Planta ejecuta la entrevista"],
-
+ 
   // ── FORMACIÓN Y DESARROLLO
   ["FORMACIÓN Y DESARROLLO","Preparación del Plan Formativo Anual (DNC y calendario)","R","R","—","C","Central diseña y lidera el plan corporativo; Gestor Negocio aporta las necesidades de su área; Planta las suyas"],
   ["","Alta de Acción Formativa (AAFF) en SAP y codificación","R","—","—","C","Central gestiona la formación transversal y soft skills; Planta puede dar de alta la formación operativa específica"],
@@ -915,7 +253,7 @@ const TAREAS = [
   ["","KPIs de formación (SAP + iFormalia) para reporting ejecutivo","R","—","—","—","Central íntegramente. 68.116 h en 2025 (+150% vs 2019). Indicadores homogéneos."],
   ["","LMS / plataforma e-learning y homologación de proveedores","R","R","—","—","Central gobierna la plataforma y homologa proveedores; Gestor Negocio valida la adecuación de contenidos"],
   ["","Impartición de formación interna operativa","—","R","—","R","Gestor Negocio coordina la programación; Planta imparte y gestiona la formación técnica en el puesto"],
-
+ 
   // ── TALENTO Y PLANIFICACIÓN DE PERSONAS
   ["TALENTO Y PLANIFICACIÓN DE PERSONAS","Certificación Top Employer: coordinación y auditoría anual","R","R","—","—","Central coordina el proceso de auditoría; Gestor Negocio aporta evidencias de su área"],
   ["","Mapa de planes de carrera y mapa de talento corporativo","R","R","—","—","Central diseña los itinerarios; Gestor Negocio los activa y hace seguimiento con el negocio"],
@@ -932,7 +270,7 @@ const TAREAS = [
   ["","Proyección de plantilla y gestión de la RPT","R","R","C","C","Central define el modelo; Gestor Negocio proyecta; CSC facilita datos; Planta informa necesidades"],
   ["","Workforce planning y previsión de plantilla (medio-largo plazo)","R","R","—","—","Central y Gestor Negocio conjuntamente. Visión estratégica a medio-largo plazo."],
   ["","KPIs de rotación, absentismo y coste de selección para comité","R","R","—","C","Central consolida y reporta; Gestor Negocio analiza los datos de su área; Planta aporta información"],
-
+ 
   // ── COMPENSACIÓN Y BENEFICIOS
   ["COMPENSACIÓN Y BENEFICIOS","Mapa retributivo y benchmarking de mercado","R","R","—","—","Central lidera el benchmarking; Gestor Negocio lo traslada a la estrategia de cada área"],
   ["","Revisión anual del salario fijo (matriz de decisiones)","R","R","—","—","Central diseña la política y la matriz; Gestor Negocio aplica los criterios en su área"],
@@ -940,7 +278,7 @@ const TAREAS = [
   ["","Alineamiento de variables mensuales y trimestrales","R","R","—","—","Central garantiza la coherencia; Gestor Negocio valida los indicadores de corto plazo de su área"],
   ["","Plan de retribución flexible corporativo","R","R","C","—","Central diseña el catálogo; Gestor Negocio lo comunica; CSC opera la plataforma y los proveedores"],
   ["","Política de beneficios no monetarios diferenciadores","R","R","—","—","Central define el catálogo; Gestor Negocio lo comunica y activa en cada unidad de negocio"],
-
+ 
   // ── GESTIÓN DE TIEMPO Y ABSENTISMO
   ["GESTIÓN DE TIEMPO Y ABSENTISMO","Calendario laboral anual y gestión de turnos","—","R","C","R","Gestor Negocio aprueba el calendario; CSC lo registra en sistema; Planta ejecuta y gestiona los turnos"],
   ["","Fichajes, correcciones, permisos y vacaciones","—","—","C","R","Planta gestiona el día a día; CSC supervisa la trazabilidad y corrige incidencias en sistema"],
@@ -949,19 +287,19 @@ const TAREAS = [
   ["","Cuadro de mando de absentismo y protocolo de seguimiento","R","R","C","R","Central define el protocolo; Gestor Negocio hace seguimiento; CSC elabora el cuadro; Planta lo ejecuta"],
   ["","Cálculo y control del coste del absentismo para dirección","R","R","—","C","Central analiza y reporta al comité; Gestor Negocio aporta el contexto de su área"],
   ["","Carga de incidencias de nómina (fichajes, correcciones)","—","R","C","R","Planta carga y comunica las incidencias; Gestor Negocio supervisa; CSC las revisa y aplica en nómina"],
-
+ 
   // ── PLANIFICACIÓN ESTRATÉGICA Y DATOS
   ["PLANIFICACIÓN ESTRATÉGICA Y DATOS","Modelo de People Analytics: captura, calidad y visualización","R","R","C","—","Central construye los modelos; Gestor Negocio los utiliza para proponer acciones; CSC garantiza el dato"],
   ["","Cuadro de mando DyGP para comité de dirección","R","R","C","—","Central elabora el cuadro; Gestor Negocio aporta análisis de su área; CSC facilita la extracción de datos"],
   ["","Estandarización y calidad del dato RRHH (gobierno del dato)","R","R","C","—","Central define los estándares; Gestor Negocio vela por la calidad en su área; CSC implanta los controles"],
   ["","Proyectos de transformación organizativa (change management)","R","R","—","C","Central lidera; Gestor Negocio gestiona el cambio en el negocio; Planta lo implementa en el centro"],
   ["","Integración de plantas adquiridas (procesos M&A)","—","R","R","—","Gestor Negocio lidera la integración con el negocio; CSC gestiona la integración administrativa y de sistemas"],
-
+ 
   // ── CLIMA Y COMUNICACIÓN INTERNA
   ["CLIMA Y COMUNICACIÓN INTERNA","Encuesta de clima / eNPS: diseño, lanzamiento y análisis","R","R","—","C","Central diseña y analiza; Gestor Negocio difunde y propone planes de acción; Planta ejecuta las mejoras"],
   ["","Canal de denuncias y comunicaciones internas corporativas","R","R","—","C","Central define y gestiona el canal; Gestor Negocio lo comunica; Planta informa a los trabajadores"],
   ["","Reconocimientos, employee experience y acogida cultural","R","R","—","C","Central diseña el programa; Gestor Negocio lo activa; Planta ejecuta los reconocimientos presenciales"],
-
+ 
   // ── EMPRESA SALUDABLE
   ["EMPRESA SALUDABLE","Pilar 1: Entorno de trabajo saludable (Espai Cardioprotegit)","R","R","—","C","Central diseña estándares y certifica; Gestor Negocio coordina; Planta ejecuta en cada centro"],
   ["","Pilar 2: Bienestar emocional (acoso, igualdad, psicología)","R","R","—","C","Central coordina protocolos; Gestor Negocio traslada al negocio; Planta ejecuta. FPSICO: 68%→75%."],
@@ -969,7 +307,7 @@ const TAREAS = [
   ["","Pilar 4: Participación en la comunidad (GRANS AMICS GVC)","R","R","—","C","Central diseña el programa; Gestor Negocio moviliza la participación; Planta organiza. 55% participa."],
   ["","Pilar 5: Salud financiera (nuevo 2025)","R","R","—","—","Central diseña y coordina las iniciativas; Gestor Negocio las difunde activamente en cada unidad"],
   ["","Pilar 6: Certificaciones REES + Corazón","R","—","—","—","Central íntegramente (Ministerio de Sanidad + Fundación Española del Corazón)."],
-
+ 
   // ── IT-DyGP
   ["IT-DYGP — Centro de Excelencia (CoE)","Proyectos transversales IT-DyGP","R","—","—","—","Central íntegramente. Visión global, recursos dedicados y PMO."],
   ["","Proyectos de mejora de procesos DyGP","R","—","—","—","Central íntegramente. Reingeniería de procesos. Metodología y gobierno desde CoE."],
@@ -1012,9 +350,9 @@ const AREA_COLORS = {
   "IT-DYGP — Gestor de Negocio (BP)":"#D46B2A",
   "IT-DYGP — Planta (Soporte Local)":"#2E7D5B",
 };
-
+ 
 let currentArea = 'all', currentSearch = '', editMode = false;
-
+ 
 // Convert TAREAS into a mutable array of row objects with a stable area per row (carry-forward),
 // each with a unique id so edits/deletes are reliable even after re-render.
 let TASK_ROWS = [];
@@ -1026,7 +364,7 @@ let TASK_ROWS = [];
     TASK_ROWS.push({ id: id++, area: ea, isNewArea: !!area, tarea, cen, gn, csc, plt, nota: nota || '' });
   });
 })();
-
+ 
 function filterArea(area, btn) {
   currentArea = area;
   btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1034,7 +372,7 @@ function filterArea(area, btn) {
   buildTable();
 }
 function searchTasks(val) { currentSearch = val.toLowerCase(); buildTable(); }
-
+ 
 function toggleEditMode() {
   editMode = !editMode;
   const btn = document.getElementById('editToggleBtn');
@@ -1050,7 +388,7 @@ function toggleEditMode() {
   delHeader.style.display = editMode ? 'table-cell' : 'none';
   buildTable();
 }
-
+ 
 function cycleValue(rowId, field) {
   const row = TASK_ROWS.find(r => r.id === rowId);
   if (!row) return;
@@ -1059,7 +397,7 @@ function cycleValue(rowId, field) {
   row[field] = order[(idx + 1) % order.length];
   buildTable();
 }
-
+ 
 function deleteRow(rowId) {
   const row = TASK_ROWS.find(r => r.id === rowId);
   if (!row) return;
@@ -1073,7 +411,7 @@ function deleteRow(rowId) {
   TASK_ROWS.splice(idx, 1);
   buildTable();
 }
-
+ 
 function openAddTaskForm() {
   const sel = document.getElementById('newTaskArea');
   sel.innerHTML = Object.keys(AREA_COLORS).map(a => `<option value="${a}">${a}</option>`).join('');
@@ -1108,7 +446,7 @@ function confirmAddTask() {
   closeAddTaskForm();
   buildTable();
 }
-
+ 
 function updateNota(rowId, val) {
   const row = TASK_ROWS.find(r => r.id === rowId);
   if (row) row.nota = val;
@@ -1163,7 +501,7 @@ function nota(text, rowId) {
 const STORAGE_KEY = 'dygp_edits_v1';
 const EDITABLE_SELECTOR = 'p, h1, h2, h3, li, td, th, .card-title, .card-body, .callout, .veredicto-body, .ver-step, .arg-body p, .arg-body strong, .nivel-desc, .nivel-name, .nivel-role, .section-sub, .hero-sub, .ev-b, .ev-t, .px-t, .eje-b, .eje-t, .kpi-l, .kpi-d, .sa-mis, .sa-name, .eq-emp, .eq-row, .pc-box li, .desc-body, .score-table td, .score-table th';
 let editActive = false;
-
+ 
 function toggleEdit() {
   editActive = !editActive;
   const bar = document.getElementById('editor-bar');
@@ -1180,7 +518,7 @@ function toggleEdit() {
     document.getElementById('eb-mode-label').style.color = 'rgba(255,255,255,.55)';
   }
 }
-
+ 
 function enableEditable() {
   document.querySelectorAll(EDITABLE_SELECTOR).forEach((el, i) => {
     if (el.closest('#editor-bar') || el.closest('script') || el.closest('style')) return;
@@ -1190,17 +528,17 @@ function enableEditable() {
     el.spellcheck = false;
   });
 }
-
+ 
 function disableEditable() {
   document.querySelectorAll('[contenteditable=true]').forEach(el => {
     el.contentEditable = 'false';
   });
 }
-
+ 
 function fmt(cmd) {
   document.execCommand(cmd, false, null);
 }
-
+ 
 function fmtHL() {
   const sel = window.getSelection();
   if (!sel || sel.isCollapsed) return;
@@ -1214,7 +552,7 @@ function fmtHL() {
   }
   sel.removeAllRanges();
 }
-
+ 
 function fmtRemove() {
   // Remove bold, strike and highlight from selection
   document.execCommand('removeFormat', false, null);
@@ -1228,7 +566,7 @@ function fmtRemove() {
     parent.removeChild(m);
   });
 }
-
+ 
 function saveAll() {
   const data = {};
   // Save general editable content
@@ -1243,13 +581,13 @@ function saveAll() {
   btn.classList.add('save-ok');
   setTimeout(() => { btn.textContent = '💾 Guardar'; btn.classList.remove('save-ok'); }, 2000);
 }
-
+ 
 function resetAll() {
   if (!confirm('¿Descartar todos los cambios guardados y volver al original?')) return;
   localStorage.removeItem(STORAGE_KEY);
   location.reload();
 }
-
+ 
 function loadSaved() {
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return;
@@ -1268,10 +606,10 @@ function loadSaved() {
     });
   } catch(e) { console.warn('Error loading saved data', e); }
 }
-
+ 
 // Show toolbar always, allow activating from it
 document.getElementById('editor-bar').classList.remove('hidden');
-
+ 
 // Keyboard shortcuts
 document.addEventListener('keydown', e => {
   if (!editActive) return;
@@ -1280,10 +618,11 @@ document.addEventListener('keydown', e => {
     if (e.key === 'b') { e.preventDefault(); fmt('bold'); }
   }
 });
-
+ 
 // Load saved data after everything is rendered
 setTimeout(loadSaved, 100);
-
+ 
 buildTable();
 </script>
 </body></html>
+ 

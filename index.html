@@ -227,26 +227,33 @@ hr.divider{border:none;border-top:1px solid var(--gris2);margin:1.8rem 0;}
 .eb-btn.save-ok{background:#27AE60 !important;}
 #eb-mode-label{font-size:.75rem;color:rgba(255,255,255,.55);white-space:nowrap;}
 /* Editable regions */
-[contenteditable=true]{outline:2px dashed rgba(46,109,164,.35);outline-offset:2px;border-radius:3px;}
-[contenteditable=true]:focus{outline:2px solid var(--naranj);background:rgba(255,255,255,.04);}
+[contenteditable="true"]{outline:2px dashed rgba(212,107,42,.4);outline-offset:3px;border-radius:4px;cursor:text;}
+[contenteditable="true"]:focus{outline:2px solid var(--naranj);background:rgba(255,255,255,.03);}
 mark.hl{background:#FDE68A;border-radius:2px;padding:0 1px;}
+/* Tasks zone is never affected by global contenteditable */
+#tasks-zone, #tasks-zone *{-webkit-user-modify:read-write !important;}
+#tab-tareas .content [contenteditable]{pointer-events:auto !important;}
+#tasksTable td{cursor:default;}
+#tasksTable .td-rc{cursor:pointer !important;}
+#tasksTable input{cursor:text !important;pointer-events:auto !important;-webkit-user-select:text;user-select:text;}
 </style>
 </head>
 <body>
  
 <!-- ── EDITOR TOOLBAR ── -->
 <div id="editor-bar" class="hidden">
-  <span id="eb-mode-label">Modo edición</span>
+  <span id="eb-mode-label">Editor</span>
   <div class="eb-sep"></div>
-  <button class="eb-btn" id="eb-bold"     onclick="fmt('bold')"           title="Negrita (Ctrl+B)"><b>N</b></button>
-  <button class="eb-btn" id="eb-strike"   onclick="fmt('strikeThrough')"  title="Tachado"><s>T</s></button>
-  <button class="eb-btn" id="eb-hl"       onclick="fmtHL()"               title="Subrayador amarillo">🖊</button>
-  <button class="eb-btn" id="eb-remove"   onclick="fmtRemove()"           title="Quitar formato">✕</button>
+  <button class="eb-btn" id="eb-bold"   onclick="fmt('bold')"          title="Negrita (Ctrl+B)"><b>N</b></button>
+  <button class="eb-btn" id="eb-strike" onclick="fmt('strikeThrough')" title="Tachado"><s>T</s></button>
+  <button class="eb-btn" id="eb-hl"     onclick="fmtHL()"              title="Subrayador amarillo">🖊 Subrayar</button>
+  <button class="eb-btn" id="eb-remove" onclick="fmtRemove()"          title="Quitar formato">✕ Limpiar</button>
   <div class="eb-sep"></div>
-  <button class="eb-btn" id="eb-save"     onclick="saveAll()">💾 Guardar</button>
-  <button class="eb-btn" id="eb-reset"    onclick="resetAll()" title="Descartar todos los cambios">↩ Resetear</button>
+  <button class="eb-btn" id="eb-save"   onclick="saveAll()">💾 Guardar</button>
+  <button class="eb-btn" id="eb-reset"  onclick="resetAll()">↩ Resetear</button>
   <div class="eb-sep"></div>
   <button class="eb-btn" onclick="toggleEdit()" id="eb-toggle">✏️ Activar edición</button>
+  <span id="eb-hint" style="display:none;font-size:.72rem;color:#FDE68A;margin-left:4px">Haz clic en el texto para editar</span>
 </div>
  
 <nav>
@@ -659,181 +666,116 @@ mark.hl{background:#FDE68A;border-radius:2px;padding:0 1px;}
 </div>
 <!-- ═══ TAREAS ═══ -->
 <div id="tab-tareas" class="tab-panel">
-  <div class="content">
-    <p class="section-title">Distribución de Tareas DyGP</p>
-    <p class="section-sub">Responsabilidades por nivel funcional · R = Responsable (dueño del resultado) · C = Colabora (sin ownership) · — = Sin participación</p>
-    <div class="nivel-row">
-      <div class="nivel-card" style="background:var(--azul)"><div class="nivel-name">Central</div><div class="nivel-role">Diseña · Decide · Lidera</div><div class="nivel-desc">Políticas, estándares, People Analytics, C&amp;B, Plan de Igualdad, negociación colectiva.</div></div>
-      <div class="nivel-card" style="background:var(--naranj)"><div class="nivel-name">Gestor de Negocio</div><div class="nivel-role">Conecta · Gestiona · Activa</div><div class="nivel-desc">Traduce estrategia al negocio. Selección, desempeño, sucesiones, conflictos.</div></div>
-      <div class="nivel-card" style="background:var(--azul-m)"><div class="nivel-name">CSC</div><div class="nivel-role">Ejecuta · Estandariza</div><div class="nivel-desc">Nómina, SS, SILTRA, contratos, FUNDAE. Procesos homogéneos y auditables.</div></div>
-      <div class="nivel-card" style="background:var(--verde)"><div class="nivel-name">Planta</div><div class="nivel-role">Atiende · Aplica</div><div class="nivel-desc">Atención presencial, fichajes, incidencias, firmas. Primer contacto del trabajador.</div></div>
+<style>
+  #tz table{width:100%;border-collapse:collapse;font-size:.78rem;}
+  #tz thead th{background:#1B3A5C;color:#fff;padding:8px 10px;text-align:center;font-size:.7rem;font-weight:700;}
+  #tz thead th:first-child{text-align:left;}
+  #tz thead th.cen{background:#1B4878;}
+  #tz thead th.bp{background:#B05010;}
+  #tz thead th.csc{background:#0A4030;}
+  #tz thead th.plt{background:#1A5030;}
+  #tz tbody tr.area-row td{font-weight:700;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;color:#fff;}
+  #tz tbody tr.task-row td{padding:5px 10px;border-bottom:1px solid #E4E8EF;vertical-align:middle;}
+  #tz tbody tr.task-row:nth-child(even) td{background:#F5F7FA;}
+  #tz tbody tr.task-row:hover td{background:#EBF5FB;}
+  .rc{text-align:center;font-weight:700;font-size:.82rem;width:60px;}
+  .rc.R{background:#D5EFE2;color:#1A5C35;}
+  .rc.C{background:#FDE9D9;color:#9B4410;}
+  .rc.N{color:#ccc;}
+  .rc.editable{cursor:pointer;user-select:none;}
+  .rc.editable:hover{opacity:.75;}
+  #tz input.ti{width:100%;border:1px solid #ccc;border-radius:4px;padding:3px 6px;font-family:inherit;font-size:.77rem;box-sizing:border-box;}
+  #tz input.ni{width:100%;border:1px solid #ccc;border-radius:4px;padding:3px 6px;font-family:inherit;font-size:.72rem;color:#555;box-sizing:border-box;}
+  #tz button.del{background:none;border:none;cursor:pointer;font-size:.9rem;opacity:.45;padding:0 4px;}
+  #tz button.del:hover{opacity:1;}
+  .tz-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:10px 0;}
+  .tz-btn{background:#fff;border:1px solid #E4E8EF;border-radius:6px;padding:5px 12px;font-size:.76rem;cursor:pointer;font-family:inherit;color:#5A6070;}
+  .tz-btn:hover{border-color:#2E6DA4;color:#1B3A5C;}
+  .tz-btn.on{background:#1E8449;color:#fff;border-color:#1E8449;font-weight:700;}
+  .tz-btn.add{background:#1B3A5C;color:#fff;border-color:#1B3A5C;}
+  .tz-search{flex:1;min-width:160px;border:1px solid #E4E8EF;border-radius:6px;padding:5px 10px;font-size:.78rem;font-family:inherit;outline:none;}
+  .tz-search:focus{border-color:#2E6DA4;}
+  .tz-count{font-size:.74rem;color:#8A93A2;padding:4px 0;}
+  .tz-hint{font-size:.72rem;color:#D46B2A;display:none;}
+  .add-panel{display:none;background:#fff;border:1px solid #E4E8EF;border-radius:10px;padding:14px;margin-bottom:12px;}
+  .add-panel label{font-size:.7rem;font-weight:600;color:#8A93A2;display:block;margin-bottom:3px;}
+  .add-panel input,.add-panel select{width:100%;border:1px solid #E4E8EF;border-radius:5px;padding:5px 8px;font-family:inherit;font-size:.78rem;margin-bottom:8px;}
+  .add-panel .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .add-panel .grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;}
+  #tz-wrap{overflow-x:auto;border:1px solid #E4E8EF;border-radius:10px;}
+</style>
+<div style="padding:24px 32px">
+  <p style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:#1B3A5C;margin-bottom:4px">Distribución de Tareas DyGP</p>
+  <p style="font-size:.84rem;color:#8A93A2;margin-bottom:16px">R = Responsable &nbsp;·&nbsp; C = Colabora &nbsp;·&nbsp; — = Sin participación</p>
+ 
+  <!-- Filter bar -->
+  <div class="tz-bar" id="tz-filters">
+    <button class="tz-btn on" onclick="TZ.filter('all',this)">Todas</button>
+    <button class="tz-btn" onclick="TZ.filter('ADMINISTRACIÓN',this)">Adm. Personal</button>
+    <button class="tz-btn" onclick="TZ.filter('NÓMINA',this)">Nómina</button>
+    <button class="tz-btn" onclick="TZ.filter('CONTRATOS',this)">Contratos y RRLL</button>
+    <button class="tz-btn" onclick="TZ.filter('SELECCIÓN',this)">Selección</button>
+    <button class="tz-btn" onclick="TZ.filter('TALENTO',this)">Talento</button>
+    <button class="tz-btn" onclick="TZ.filter('FORMACIÓN',this)">Formación</button>
+    <button class="tz-btn" onclick="TZ.filter('COMPENSACIÓN',this)">C&amp;B</button>
+    <button class="tz-btn" onclick="TZ.filter('TIEMPO',this)">Tiempo</button>
+    <button class="tz-btn" onclick="TZ.filter('PLANIFICACIÓN',this)">Planificación</button>
+    <button class="tz-btn" onclick="TZ.filter('CLIMA',this)">Clima</button>
+    <button class="tz-btn" onclick="TZ.filter('EMPRESA SALUDABLE',this)">Empresa Saludable</button>
+    <button class="tz-btn" onclick="TZ.filter('IT-DYGP',this)">IT-DyGP</button>
+    <input class="tz-search" type="text" placeholder="🔍 Buscar tarea..." oninput="TZ.search(this.value)">
+  </div>
+ 
+  <!-- Edit controls -->
+  <div class="tz-bar" style="margin-top:-4px">
+    <button class="tz-btn" id="tz-edit-btn" onclick="TZ.toggleEdit()">✏️ Activar edición</button>
+    <button class="tz-btn add" id="tz-add-btn" style="display:none" onclick="TZ.openAdd()">➕ Añadir tarea</button>
+    <button class="tz-btn" id="tz-save-btn" onclick="TZ.save()">💾 Guardar cambios</button>
+    <button class="tz-btn" onclick="TZ.reset()">↩ Resetear tabla</button>
+    <span class="tz-hint" id="tz-hint">Clic en R / C / — para cambiar &nbsp;·&nbsp; Edita el texto directamente</span>
+  </div>
+  <div class="tz-count" id="tz-count"></div>
+ 
+  <!-- Add task panel -->
+  <div class="add-panel" id="tz-add-panel">
+    <div class="grid2">
+      <div><label>Área</label><select id="tz-a-area"></select></div>
+      <div><label>Nombre de la tarea</label><input id="tz-a-name" placeholder="Nombre de la tarea"></div>
     </div>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterArea('all',this)">Todas las áreas</button>
-      <button class="filter-btn" onclick="filterArea('ADMINISTRACIÓN',this)">Adm. Personal y SS</button>
-      <button class="filter-btn" onclick="filterArea('NÓMINA',this)">Nómina y Retribución</button>
-      <button class="filter-btn" onclick="filterArea('CONTRATOS',this)">Contratos y RRLL</button>
-      <button class="filter-btn" onclick="filterArea('SELECCIÓN',this)">Selección</button>
-      <button class="filter-btn" onclick="filterArea('TALENTO',this)">Talento</button>
-      <button class="filter-btn" onclick="filterArea('FORMACIÓN',this)">Formación y Desarrollo</button>
-      <button class="filter-btn" onclick="filterArea('COMPENSACIÓN',this)">C&amp;B</button>
-      <button class="filter-btn" onclick="filterArea('TIEMPO',this)">Tiempo y Absentismo</button>
-      <button class="filter-btn" onclick="filterArea('PLANIFICACIÓN',this)">Planificación Estratégica</button>
-      <button class="filter-btn" onclick="filterArea('CLIMA',this)">Clima y Comunicación</button>
-      <button class="filter-btn" onclick="filterArea('EMPRESA SALUDABLE',this)">Empresa Saludable</button>
-      <button class="filter-btn" onclick="filterArea('IT-DYGP',this)">IT-DyGP</button>
-      <input class="search-box" type="text" placeholder="🔍  Buscar tarea..." oninput="searchTasks(this.value)">
+    <div class="grid4">
+      <div><label>Central</label><select id="tz-a-cen"><option>—</option><option>R</option><option>C</option></select></div>
+      <div><label>Gestor Negocio</label><select id="tz-a-gn"><option>—</option><option>R</option><option>C</option></select></div>
+      <div><label>CSC</label><select id="tz-a-csc"><option>—</option><option>R</option><option>C</option></select></div>
+      <div><label>Planta</label><select id="tz-a-plt"><option>—</option><option>R</option><option>C</option></select></div>
     </div>
-    <div class="filter-bar" style="margin-top:-.4rem">
-      <button class="filter-btn" id="editToggleBtn" onclick="toggleEditMode()" style="font-weight:700">✏️ Activar edición</button>
-      <button class="filter-btn" onclick="openAddTaskForm()" style="display:none" id="addTaskBtn">➕ Añadir tarea</button>
-      <span id="editHint" style="display:none;font-size:.74rem;color:var(--gris3)">Haz clic en cualquier celda R / C / — para cambiarla. Usa 🗑️ para eliminar una fila.</span>
-    </div>
-    <div id="addTaskPanel" style="display:none;background:var(--blanco);border:1px solid var(--gris2);border-radius:10px;padding:1rem;margin-bottom:1rem;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.6rem;">
-        <div>
-          <label style="font-size:.7rem;font-weight:600;color:var(--gris3);display:block;margin-bottom:.2rem">Área</label>
-          <select id="newTaskArea" class="search-box" style="width:100%"></select>
-        </div>
-        <div>
-          <label style="font-size:.7rem;font-weight:600;color:var(--gris3);display:block;margin-bottom:.2rem">Nombre de la tarea</label>
-          <input id="newTaskName" class="search-box" style="width:100%" placeholder="Ej: Gestión de visados internacionales">
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.6rem;margin-bottom:.6rem;">
-        <div><label style="font-size:.7rem;font-weight:600;color:var(--gris3);display:block;margin-bottom:.2rem">Central</label><select id="newTaskCen" class="search-box" style="width:100%"><option>—</option><option>R</option><option>C</option></select></div>
-        <div><label style="font-size:.7rem;font-weight:600;color:var(--gris3);display:block;margin-bottom:.2rem">Gestor Negocio</label><select id="newTaskGN" class="search-box" style="width:100%"><option>—</option><option>R</option><option>C</option></select></div>
-        <div><label style="font-size:.7rem;font-weight:600;color:var(--gris3);display:block;margin-bottom:.2rem">CSC</label><select id="newTaskCSC" class="search-box" style="width:100%"><option>—</option><option>R</option><option>C</option></select></div>
-        <div><label style="font-size:.7rem;font-weight:600;color:var(--gris3);display:block;margin-bottom:.2rem">Planta</label><select id="newTaskPlt" class="search-box" style="width:100%"><option>—</option><option>R</option><option>C</option></select></div>
-      </div>
-      <div style="margin-bottom:.7rem;">
-        <label style="font-size:.7rem;font-weight:600;color:var(--gris3);display:block;margin-bottom:.2rem">Nota / Criterio (opcional)</label>
-        <input id="newTaskNote" class="search-box" style="width:100%" placeholder="Razonamiento o aclaración">
-      </div>
-      <div style="display:flex;gap:.5rem;">
-        <button class="filter-btn active" onclick="confirmAddTask()">Guardar tarea</button>
-        <button class="filter-btn" onclick="closeAddTaskForm()">Cancelar</button>
-      </div>
-    </div>
-    <div class="row-count" id="rowCount"></div>
-    <div style="overflow-x:auto">
-    <table class="tasks-table" id="tasksTable">
-      <thead><tr>
-        <th style="width:38%;text-align:left">Área / Tarea</th>
-        <th class="col-cen" style="width:9%">Central</th>
-        <th class="col-bp"  style="width:10%">Gestor<br>Negocio</th>
-        <th class="col-csc" style="width:10%">CSC</th>
-        <th class="col-plt" style="width:9%">Planta</th>
-        <th style="width:18%">Nota / Criterio</th>
-        <th id="delColHeader" style="width:4%;display:none"></th>
-      </tr></thead>
-      <tbody id="tasksBody"></tbody>
-    </table>
+    <div><label>Nota / Criterio</label><input id="tz-a-nota" placeholder="Razonamiento o aclaración (opcional)"></div>
+    <div style="display:flex;gap:6px;margin-top:4px">
+      <button class="tz-btn add" onclick="TZ.confirmAdd()">Guardar tarea</button>
+      <button class="tz-btn" onclick="TZ.closeAdd()">Cancelar</button>
     </div>
   </div>
+ 
+  <!-- Table -->
+  <div id="tz-wrap"><table id="tz-table">
+    <thead><tr>
+      <th style="text-align:left;width:36%">Tarea</th>
+      <th class="cen" style="width:8%">Central</th>
+      <th class="bp"  style="width:9%">Gestor<br>Negocio</th>
+      <th class="csc" style="width:8%">CSC</th>
+      <th class="plt" style="width:8%">Planta</th>
+      <th style="width:27%">Nota / Criterio</th>
+      <th id="tz-del-th" style="width:4%;display:none"></th>
+    </tr></thead>
+    <tbody id="tz-body"></tbody>
+  </table></div>
 </div>
  
-<!-- ═══ SÍNTESIS ═══ -->
-<div id="tab-sintesis" class="tab-panel">
-  <div class="content">
-    <p class="section-title">Síntesis y Recomendación a la Dirección General</p>
-    <p class="section-sub">Consolidado de los cuatro departamentos · Junio 2026 · Confidencial</p>
-    <div class="callout verde"><strong>Premisa</strong>Los cuatro ejes trabajados en este informe (organigrama, CSC, tareas por departamento y dimensionamiento) son las cuatro piezas de un mismo proyecto de madurez organizativa para DyGP. Sin las cuatro piezas, el modelo queda incompleto.</div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Evidencias consolidadas</p>
-    <div class="ev-list">
-      <div class="ev"><div class="ev-t">Consenso de los cuatro departamentos</div><div class="ev-b">Los jefes de Laboral, Formación, Selección/Talento e IT-DyGP proponen el mismo modelo: Central diseña y gobierna; el negocio ejecuta con proximidad. Ningún departamento propone independencia del negocio.</div></div>
-      <div class="ev"><div class="ev-t">La dependencia del CSC sigue siendo una decisión abierta</div><div class="ev-b">Los cuatro departamentos centralizan hoy sus procesos transaccionales (nómina, SS, SILTRA, SAP SF, FUNDAE, contratos, IRPF), pero el modelo de equipos especializados por área que ya propone el Departamento Laboral muestra que la proximidad al negocio también es una dirección viable. La decisión final sobre la dependencia jerárquica del CSC requiere el análisis específico de la sección dedicada.</div></div>
-      <div class="ev"><div class="ev-t">La proximidad se resuelve con modelo, no con jerarquía</div><div class="ev-b">El Departamento Laboral ya lo resuelve: equipos especializados por área de negocio con dependencia de Central. Un técnico conoce el convenio de Avícola y reporta a la Dirección de Personas.</div></div>
-      <div class="ev"><div class="ev-t">Terminología unificada en los cuatro departamentos</div><div class="ev-b">Los cuatro departamentos usan los mismos cuatro niveles: Central (CoE/CSC), Gestor de Negocio y Planta. IT-DyGP lo formaliza con la terminología del Modelo Ulrich, que es la referencia para la comunicación con la Dirección General.</div></div>
-      <div class="ev"><div class="ev-t">Los números avalan la centralización</div><div class="ev-b">Formación: +150% horas 2019–2025, 103.523 € recuperados por trasvase FUNDAE. Selección/Talento: ahorro potencial &gt;2M€/año en retención, 6 años Top Employer. Nómina: riesgo penal ante el SEPE justifica proceso único y auditable.</div></div>
-      <div class="ev"><div class="ev-t">Empresas sin Gestor de Negocio asignado</div><div class="ev-b">Big Bang Food, Iglesias Farré Ros, Zyrcullar Brands, Zyrcullar Foods, Zyrcullar Plant y Zyrcullar Protein Labs están sin Gestor de Negocio DyGP asignado. Requieren definición antes de la implantación.</div></div>
-    </div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">DAFO — Modelo propuesto</p>
-    <div class="dafo-grid">
-      <div class="dafo-card dafo-F"><h3>✅ Fortalezas</h3><ul>
-        <li>Cadena de mando limpia — un técnico, un jefe directo, sin ambigüedad.</li>
-        <li>Riesgo legal (nómina, SS, SILTRA) asumido por Central, que tiene la autoridad y la responsabilidad.</li>
-        <li>Economías de escala en formación (103.523 € trasvase FUNDAE acumulado 2023–2025), selección (ETT/consultoras) y sistemas (SAP SF, firma digital).</li>
-        <li>6 años consecutivos con Certificación Top Employer — solo posible con modelo centralizado homogéneo.</li>
-        <li>Equipos especializados por área de negocio en Laboral: proximidad sin romper la jerarquía.</li>
-        <li>People Analytics e IA como nodos estructurales con dependencia jerárquica definida.</li>
-      </ul></div>
-      <div class="dafo-card dafo-D"><h3>⚠️ Debilidades</h3><ul>
-        <li>Ratio actual Selección/Talento de 1:2.250 muy por encima del benchmark sectorial (1:80–150).</li>
-        <li>Función C&amp;B sin rol dedicado actualmente — riesgo de brechas retributivas no gestionadas.</li>
-        <li>Equipo de Formación (4 personas propuestas) por debajo del ratio ATD 2025 para 8.000 empleados.</li>
-        <li>6 entidades legales sin Gestor de Negocio DyGP asignado todavía.</li>
-        <li>El modelo descentralizado avanzado en Laboral requiere madurez y masa crítica mínima (500 empleados, 3 personas en planta).</li>
-      </ul></div>
-      <div class="dafo-card dafo-O"><h3>🚀 Oportunidades</h3><ul>
-        <li>Digitalización y IA: automatización de procesos FUNDAE (robot), People Analytics predictivo, LMS corporativo.</li>
-        <li>Relevo generacional: en los próximos 4 años, conocimiento crítico del Grupo en riesgo de pérdida.</li>
-        <li>Incorporación de nuevas empresas (Zyrcullar y afines) como oportunidad de escalar el modelo sin crear nuevas estructuras.</li>
-        <li>Herramienta de escucha global (Qualtrics) para unificar la medición de clima en todas las empresas.</li>
-        <li>FP Dual y cantera universitaria: pipeline de talento a 3–5 años con bajo coste de adquisición.</li>
-      </ul></div>
-      <div class="dafo-card dafo-A"><h3>⚡ Amenazas</h3><ul>
-        <li>Brecha retributiva respecto al mercado: una diferencia del 10% puede costar el 25% del talento clave en 18 meses.</li>
-        <li>Inspecciones SEPE: riesgo penal y administrativo ante errores en FUNDAE/SILTRA justifica el modelo centralizado.</li>
-        <li>Pérdida de la Certificación Top Employer si se descentraliza el modelo y se pierden los estándares homogéneos.</li>
-        <li>Concentración de conocimiento crítico en personas clave sin plan de sucesión activo.</li>
-        <li>Crecimiento del Grupo sin escalar la estructura DyGP al mismo ritmo.</li>
-      </ul></div>
-    </div>
-    <hr class="divider">
-    <p class="section-title" style="font-size:1.2rem">Próximos pasos</p>
-    <div class="px-list">
-      <div class="px-item"><div class="px-n">1</div><div class="px-t">Decidir con la Dirección General la dependencia jerárquica del CSC (Central o Negocio) y articularla con el modelo de equipos especializados por área de negocio del Departamento Laboral.</div></div>
-      <div class="px-item"><div class="px-n">2</div><div class="px-t">Definir SLA formales entre el CSC y las unidades de negocio, con canales de escalado y responsables de interlocución (Gestor de Negocio).</div></div>
-      <div class="px-item"><div class="px-n">3</div><div class="px-t">Asignar Gestor de Negocio DyGP a las 6 entidades legales sin gestor definido (Zyrcullar y afines).</div></div>
-      <div class="px-item"><div class="px-n">4</div><div class="px-t">Iniciar proceso de selección de posiciones por cubrir: IT-DyGP (Técnico de Datos, Soporte Local, Gestor Negocio ITP) y Compensación y Beneficios (2 especialistas).</div></div>
-      <div class="px-item"><div class="px-n">5</div><div class="px-t">Incorporar los departamentos pendientes (PRL y otros) para completar el mapa de tareas total y generar la versión definitiva del informe.</div></div>
-    </div>
-    <div class="callout azul" style="margin-top:1rem"><strong>Conclusión</strong>«El modelo centralizado no es una opción ideológica: es la única que permite convertir la función de personas en una palanca estratégica al servicio del crecimiento del Grupo.» — Grup Vall Companys · DyGP · Junio 2026</div>
-  </div>
-</div>
  
 <script>
-// ── TAB SWITCHING ────────────────────────────────────────────────
-function switchTab(id) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(b => {
-    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active');
-  });
-}
- 
-// ── CSC SCORE ────────────────────────────────────────────────────
-const SCORES_CSC = [
-  ["Velocidad de respuesta a incidencias de planta","Negocio","hi","La prioridad la fija quien sufre la incidencia, no una cola compartida entre cinco áreas."],
-  ["Alineación entre autoridad y responsabilidad","Negocio","hi","Quien responde del resultado ante Dirección General debería tener mando sobre quien lo ejecuta."],
-  ["Riesgo legal ante inspección (SEPE, TGSS)","Central","hi","La responsabilidad última es corporativa; un único criterio reduce el riesgo de divergencia."],
-  ["Economías de escala (plataformas, proveedores, SILTRA)","Central","hi","Una sola negociación, un solo sistema, en lugar de cinco implantaciones distintas."],
-  ["Conocimiento del convenio y la operativa local","Negocio","mid","Un equipo que convive con el negocio entiende mejor su casuística específica."],
-  ["Homogeneidad de criterios entre áreas de negocio","Central","mid","Mismos criterios en Avícola, Porcino, Harinas y Comercializadoras sin necesidad de auditoría cruzada."],
-  ["Accountability ante una incidencia (quién la resuelve)","Negocio","mid","El Gestor de Negocio puede actuar directamente, sin canal de escalado intermedio."],
-  ["Viabilidad con el modelo de equipos especializados ya propuesto","Negocio","mid","El propio Departamento Laboral ya organiza equipos por área de negocio; formalizar la dependencia es coherente con ello."],
-];
-(function() {
-  const tb = document.getElementById('scoreBodyCSC');
-  if (!tb) return;
-  SCORES_CSC.forEach(([c,n,cls,o]) => {
-    const tr = document.createElement('tr');
-    const badgeClass = n === 'Central' ? 'score-mid' : 'score-hi';
-    tr.innerHTML = `<td>${c}</td><td style="text-align:center"><span class="score-badge ${badgeClass}">${n}</span></td><td style="color:#555;font-size:.77rem">${o}</td>`;
-    tb.appendChild(tr);
-  });
-})();
- 
-// ── TAREAS DATA ───────────────────────────────────────────────────
-// Columnas: Central | Gestor Negocio (BP) | CSC | Planta
-// Fuentes reconciliadas: criterio unificado tarea a tarea
+// ══════════════════════════════════════════════════════════════
+// DATOS
+// ══════════════════════════════════════════════════════════════
 const TAREAS = [
- 
-  // ── ADMINISTRACIÓN DE PERSONAL Y SS
   ["ADMINISTRACIÓN DE PERSONAL Y SS","Gestión de altas/bajas en TGSS y mutua (AFI, TA1/TA2)","—","—","R","C","Planta comunica la necesidad; CSC ejecuta la afiliación en sistema"],
   ["","Liquidación de cuotas SS y gestión de errores SILTRA","—","—","R","—","CSC íntegramente. Responsabilidad legal ante TGSS."],
   ["","Comunicaciones INSS: partes IT, altas médicas, IPT","—","—","R","C","CSC gestiona el fichero; Planta recoge y comunica el parte al trabajador"],
@@ -850,8 +792,6 @@ const TAREAS = [
   ["","Alta de empleado en sistema (contrato, firma digital)","R","R","C","C","Central define protocolos; Gestor Negocio solicita el alta; CSC ejecuta en SEPE; Planta firma presencialmente"],
   ["","SLD - CRETA (comunicaciones a SEPE)","—","—","R","—","CSC ejecuta las comunicaciones legales al SEPE íntegramente"],
   ["","Contabilidad: TXT, libro contable de personal","R","—","C","—","Central aprueba; CSC genera los ficheros de contabilidad analítica"],
- 
-  // ── NÓMINA Y RETRIBUCIÓN
   ["NÓMINA Y RETRIBUCIÓN","Cierre de nómina mensual, conciliación y fichero SEPA","C","—","R","C","CSC calcula y cierra; Planta comunica incidencias del mes; Central supervisa"],
   ["","Cálculo de nómina: conceptos, retros y retroactivos","—","—","R","—","CSC íntegramente. Proceso auditado y centralizado."],
   ["","Retribución variable: definición, comunicación y cálculo","R","R","C","—","Central diseña el modelo; Gestor Negocio valida con el negocio; CSC calcula y paga"],
@@ -862,8 +802,6 @@ const TAREAS = [
   ["","IRPF: regularización, modelo 190 y declaración anual","R","—","C","—","Central aprueba los criterios; CSC ejecuta la declaración. Impacto legal y reputacional."],
   ["","Asientos contables de personal","R","—","C","—","CSC genera los asientos; Central supervisa el impacto en resultados. Indelegable."],
   ["","Gestión de pagos en especie","—","R","R","—","Gestor Negocio valida el beneficio; CSC gestiona, declara y aplica en nómina"],
- 
-  // ── CONTRATOS Y RELACIONES LABORALES
   ["CONTRATOS Y RELACIONES LABORALES","Contratación: alta SEPE, firma y comunicaciones legales","—","R","C","R","Gestor Negocio solicita y supervisa; CSC registra en SEPE; Planta ejecuta la firma presencial"],
   ["","Prórrogas, conversiones de contrato y teletrabajo","—","R","C","R","Gestor Negocio valida la decisión; CSC formaliza en sistema; Planta propone y firma"],
   ["","Despidos y extinción de contratos (SMAC, acta)","R","R","C","—","Central decide la estrategia; Gestor Negocio gestiona con el trabajador y el manager; CSC formaliza"],
@@ -885,8 +823,6 @@ const TAREAS = [
   ["","Documentación para subvenciones de empleo","R","C","C","—","Central lidera; Gestor Negocio aporta datos del área; CSC recopila y tramita"],
   ["","EINF, SEDEX, sostenibilidad y reporting no financiero","R","R","—","—","Central elabora; Gestor Negocio aporta los datos e indicadores de su área"],
   ["","Auditorías financieras y laborales","R","R","C","—","Central coordina; Gestor Negocio aporta documentación del área; CSC prepara los ficheros"],
- 
-  // ── SELECCIÓN Y ONBOARDING
   ["SELECCIÓN Y ONBOARDING","Negociación de acuerdos marco con ETTs y consultoras","R","R","—","—","Central lidera la negociación global; Gestor Negocio valida las necesidades de su área"],
   ["","Employer branding y propuesta de valor al empleado (PVE)","R","R","—","—","Central diseña y mantiene la PVE corporativa; Gestor Negocio la activa y comunica en cada unidad"],
   ["","ATS corporativo y base de datos de candidatos","R","—","—","—","Central mantiene y gobierna la herramienta íntegramente. Evita duplicidades entre empresas."],
@@ -900,8 +836,6 @@ const TAREAS = [
   ["","Pack de bienvenida y protocolo de acogida","R","R","—","C","Central estandariza el contenido; Gestor Negocio adapta al contexto; Planta entrega y ejecuta"],
   ["","Seguimiento del período de prueba","—","R","—","C","Gestor Negocio hace el seguimiento con el manager; Planta informa de la evolución diaria"],
   ["","Diseño y ejecución de entrevistas de salida","R","R","—","C","Central diseña el proceso; Gestor Negocio lo activa y analiza resultados; Planta ejecuta la entrevista"],
- 
-  // ── FORMACIÓN Y DESARROLLO
   ["FORMACIÓN Y DESARROLLO","Preparación del Plan Formativo Anual (DNC y calendario)","R","R","—","C","Central diseña y lidera el plan corporativo; Gestor Negocio aporta las necesidades de su área; Planta las suyas"],
   ["","Alta de Acción Formativa (AAFF) en SAP y codificación","R","—","—","C","Central gestiona la formación transversal y soft skills; Planta puede dar de alta la formación operativa específica"],
   ["","Gestión del crédito FUNDAE: apertura, control y cierre","R","—","—","—","Central íntegramente. Gestión como Grupo de Empresas. Recuperación extra: 103.523 € (2023–2025)."],
@@ -915,8 +849,6 @@ const TAREAS = [
   ["","KPIs de formación (SAP + iFormalia) para reporting ejecutivo","R","—","—","—","Central íntegramente. 68.116 h en 2025 (+150% vs 2019). Indicadores homogéneos."],
   ["","LMS / plataforma e-learning y homologación de proveedores","R","R","—","—","Central gobierna la plataforma y homologa proveedores; Gestor Negocio valida la adecuación de contenidos"],
   ["","Impartición de formación interna operativa","—","R","—","R","Gestor Negocio coordina la programación; Planta imparte y gestiona la formación técnica en el puesto"],
- 
-  // ── TALENTO Y PLANIFICACIÓN DE PERSONAS
   ["TALENTO Y PLANIFICACIÓN DE PERSONAS","Certificación Top Employer: coordinación y auditoría anual","R","R","—","—","Central coordina el proceso de auditoría; Gestor Negocio aporta evidencias de su área"],
   ["","Mapa de planes de carrera y mapa de talento corporativo","R","R","—","—","Central diseña los itinerarios; Gestor Negocio los activa y hace seguimiento con el negocio"],
   ["","Modelo de planificación de sucesiones (9-Box)","R","R","—","—","Central diseña el modelo; Gestor Negocio lo activa e identifica los potenciales de su área"],
@@ -932,16 +864,12 @@ const TAREAS = [
   ["","Proyección de plantilla y gestión de la RPT","R","R","C","C","Central define el modelo; Gestor Negocio proyecta; CSC facilita datos; Planta informa necesidades"],
   ["","Workforce planning y previsión de plantilla (medio-largo plazo)","R","R","—","—","Central y Gestor Negocio conjuntamente. Visión estratégica a medio-largo plazo."],
   ["","KPIs de rotación, absentismo y coste de selección para comité","R","R","—","C","Central consolida y reporta; Gestor Negocio analiza los datos de su área; Planta aporta información"],
- 
-  // ── COMPENSACIÓN Y BENEFICIOS
   ["COMPENSACIÓN Y BENEFICIOS","Mapa retributivo y benchmarking de mercado","R","R","—","—","Central lidera el benchmarking; Gestor Negocio lo traslada a la estrategia de cada área"],
   ["","Revisión anual del salario fijo (matriz de decisiones)","R","R","—","—","Central diseña la política y la matriz; Gestor Negocio aplica los criterios en su área"],
   ["","Retribución variable anual vinculada a KPIs corporativos","R","R","—","—","Central diseña el modelo global; Gestor Negocio conecta los indicadores con su área"],
   ["","Alineamiento de variables mensuales y trimestrales","R","R","—","—","Central garantiza la coherencia; Gestor Negocio valida los indicadores de corto plazo de su área"],
   ["","Plan de retribución flexible corporativo","R","R","C","—","Central diseña el catálogo; Gestor Negocio lo comunica; CSC opera la plataforma y los proveedores"],
   ["","Política de beneficios no monetarios diferenciadores","R","R","—","—","Central define el catálogo; Gestor Negocio lo comunica y activa en cada unidad de negocio"],
- 
-  // ── GESTIÓN DE TIEMPO Y ABSENTISMO
   ["GESTIÓN DE TIEMPO Y ABSENTISMO","Calendario laboral anual y gestión de turnos","—","R","C","R","Gestor Negocio aprueba el calendario; CSC lo registra en sistema; Planta ejecuta y gestiona los turnos"],
   ["","Fichajes, correcciones, permisos y vacaciones","—","—","C","R","Planta gestiona el día a día; CSC supervisa la trazabilidad y corrige incidencias en sistema"],
   ["","Horas extra, nocturnas y registro horario (RD-ley 8/2019)","—","R","C","R","Planta registra; CSC supervisa el cumplimiento; Gestor Negocio analiza el coste y la tendencia"],
@@ -949,28 +877,20 @@ const TAREAS = [
   ["","Cuadro de mando de absentismo y protocolo de seguimiento","R","R","C","R","Central define el protocolo; Gestor Negocio hace seguimiento; CSC elabora el cuadro; Planta lo ejecuta"],
   ["","Cálculo y control del coste del absentismo para dirección","R","R","—","C","Central analiza y reporta al comité; Gestor Negocio aporta el contexto de su área"],
   ["","Carga de incidencias de nómina (fichajes, correcciones)","—","R","C","R","Planta carga y comunica las incidencias; Gestor Negocio supervisa; CSC las revisa y aplica en nómina"],
- 
-  // ── PLANIFICACIÓN ESTRATÉGICA Y DATOS
   ["PLANIFICACIÓN ESTRATÉGICA Y DATOS","Modelo de People Analytics: captura, calidad y visualización","R","R","C","—","Central construye los modelos; Gestor Negocio los utiliza para proponer acciones; CSC garantiza el dato"],
   ["","Cuadro de mando DyGP para comité de dirección","R","R","C","—","Central elabora el cuadro; Gestor Negocio aporta análisis de su área; CSC facilita la extracción de datos"],
   ["","Estandarización y calidad del dato RRHH (gobierno del dato)","R","R","C","—","Central define los estándares; Gestor Negocio vela por la calidad en su área; CSC implanta los controles"],
   ["","Proyectos de transformación organizativa (change management)","R","R","—","C","Central lidera; Gestor Negocio gestiona el cambio en el negocio; Planta lo implementa en el centro"],
   ["","Integración de plantas adquiridas (procesos M&A)","—","R","R","—","Gestor Negocio lidera la integración con el negocio; CSC gestiona la integración administrativa y de sistemas"],
- 
-  // ── CLIMA Y COMUNICACIÓN INTERNA
   ["CLIMA Y COMUNICACIÓN INTERNA","Encuesta de clima / eNPS: diseño, lanzamiento y análisis","R","R","—","C","Central diseña y analiza; Gestor Negocio difunde y propone planes de acción; Planta ejecuta las mejoras"],
   ["","Canal de denuncias y comunicaciones internas corporativas","R","R","—","C","Central define y gestiona el canal; Gestor Negocio lo comunica; Planta informa a los trabajadores"],
   ["","Reconocimientos, employee experience y acogida cultural","R","R","—","C","Central diseña el programa; Gestor Negocio lo activa; Planta ejecuta los reconocimientos presenciales"],
- 
-  // ── EMPRESA SALUDABLE
   ["EMPRESA SALUDABLE","Pilar 1: Entorno de trabajo saludable (Espai Cardioprotegit)","R","R","—","C","Central diseña estándares y certifica; Gestor Negocio coordina; Planta ejecuta en cada centro"],
   ["","Pilar 2: Bienestar emocional (acoso, igualdad, psicología)","R","R","—","C","Central coordina protocolos; Gestor Negocio traslada al negocio; Planta ejecuta. FPSICO: 68%→75%."],
   ["","Pilar 3: Recursos personales de la salud (fisio, nutrición, deporte)","R","R","—","C","Central diseña el programa; Gestor Negocio lo difunde en su área; Planta lo ejecuta en cada centro"],
   ["","Pilar 4: Participación en la comunidad (GRANS AMICS GVC)","R","R","—","C","Central diseña el programa; Gestor Negocio moviliza la participación; Planta organiza. 55% participa."],
   ["","Pilar 5: Salud financiera (nuevo 2025)","R","R","—","—","Central diseña y coordina las iniciativas; Gestor Negocio las difunde activamente en cada unidad"],
   ["","Pilar 6: Certificaciones REES + Corazón","R","—","—","—","Central íntegramente (Ministerio de Sanidad + Fundación Española del Corazón)."],
- 
-  // ── IT-DyGP
   ["IT-DYGP — Centro de Excelencia (CoE)","Proyectos transversales IT-DyGP","R","—","—","—","Central íntegramente. Visión global, recursos dedicados y PMO."],
   ["","Proyectos de mejora de procesos DyGP","R","—","—","—","Central íntegramente. Reingeniería de procesos. Metodología y gobierno desde CoE."],
   ["","Desarrollos e integraciones con IA (chatbots, automatización)","R","—","—","—","Central íntegramente. Governance de datos y ética IA centralizados."],
@@ -995,6 +915,7 @@ const TAREAS = [
   ["IT-DYGP — Planta (Soporte Local)","Soporte al usuario — helpdesk DyGP (N1)","—","—","C","R","Planta atiende el primer nivel presencialmente; CSC resuelve las incidencias técnicas de N2"],
   ["","Puesta en marcha de terminales de fichaje","—","—","C","R","Planta instala y mantiene físicamente; CSC proporciona la configuración inicial y el soporte técnico"],
 ];
+ 
 const AREA_COLORS = {
   "ADMINISTRACIÓN DE PERSONAL Y SS":"#1B3A5C",
   "NÓMINA Y RETRIBUCIÓN":"#2E7D5B",
@@ -1013,278 +934,342 @@ const AREA_COLORS = {
   "IT-DYGP — Planta (Soporte Local)":"#2E7D5B",
 };
  
-let currentArea = 'all', currentSearch = '', editMode = false;
+// ══════════════════════════════════════════════════════════════
+// TAB SWITCHING
+// ══════════════════════════════════════════════════════════════
+function switchTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('tab-' + id);
+  if (panel) panel.classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if ((b.getAttribute('onclick')||'').includes("'"+id+"'")) b.classList.add('active');
+  });
+}
  
-// Convert TAREAS into a mutable array of row objects with a stable area per row (carry-forward),
-// each with a unique id so edits/deletes are reliable even after re-render.
-let TASK_ROWS = [];
-(function initRows() {
-  let lastArea = null, id = 0;
-  TAREAS.forEach(([area, tarea, cen, gn, csc, plt, nota]) => {
-    const ea = area || lastArea;
-    if (area) lastArea = area;
-    TASK_ROWS.push({ id: id++, area: ea, isNewArea: !!area, tarea, cen, gn, csc, plt, nota: nota || '' });
+// ══════════════════════════════════════════════════════════════
+// CSC SCORE TABLE
+// ══════════════════════════════════════════════════════════════
+const SCORES_CSC = [
+  ["Velocidad de respuesta a incidencias de planta","Negocio","hi","La prioridad la fija quien sufre la incidencia, no una cola compartida entre cinco áreas."],
+  ["Alineación entre autoridad y responsabilidad","Negocio","hi","Quien responde del resultado ante Dirección General debería tener mando sobre quien lo ejecuta."],
+  ["Riesgo legal ante inspección (SEPE, TGSS)","Central","mid","La responsabilidad última es corporativa; un único criterio reduce el riesgo de divergencia."],
+  ["Economías de escala (plataformas, proveedores, SILTRA)","Central","mid","Una sola negociación, un solo sistema, en lugar de cinco implantaciones distintas."],
+  ["Conocimiento del convenio y la operativa local","Negocio","hi","Un equipo que convive con el negocio entiende mejor su casuística específica."],
+  ["Homogeneidad de criterios entre áreas de negocio","Central","mid","Mismos criterios en Avícola, Porcino, Harinas y Comercializadoras sin necesidad de auditoría cruzada."],
+  ["Accountability ante una incidencia (quién la resuelve)","Negocio","hi","El Gestor de Negocio puede actuar directamente, sin canal de escalado intermedio."],
+  ["Coherencia con modelo de equipos por área ya propuesto","Negocio","hi","El Departamento Laboral ya organiza equipos por área de negocio; formalizar la dependencia es coherente."],
+];
+(function(){
+  const tb = document.getElementById('scoreBodyCSC');
+  if (!tb) return;
+  SCORES_CSC.forEach(([cr,n,cls,o]) => {
+    const tr = document.createElement('tr');
+    const bc = n==='Central' ? 'score-mid' : 'score-hi';
+    tr.innerHTML = `<td>${cr}</td><td style="text-align:center"><span class="score-badge ${bc}">${n}</span></td><td style="color:#555;font-size:.77rem">${o}</td>`;
+    tb.appendChild(tr);
   });
 })();
  
-function filterArea(area, btn) {
-  currentArea = area;
-  btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  buildTable();
-}
-function searchTasks(val) { currentSearch = val.toLowerCase(); buildTable(); }
+// ══════════════════════════════════════════════════════════════
+// TASK TABLE (TZ)
+// ══════════════════════════════════════════════════════════════
+const TZ = (function(){
+  const SKEY = 'dygp_tz_v2';
+  const CYCLE = ['—','R','C'];
+  const CLS   = {'R':'R','C':'C','—':'N'};
+  let editMode = false, areaFilter = 'all', searchStr = '';
+  let rows = [];
  
-function toggleEditMode() {
-  editMode = !editMode;
-  const btn = document.getElementById('editToggleBtn');
-  const addBtn = document.getElementById('addTaskBtn');
-  const hint = document.getElementById('editHint');
-  const delHeader = document.getElementById('delColHeader');
-  btn.textContent = editMode ? '✅ Terminar edición' : '✏️ Activar edición';
-  btn.style.background = editMode ? 'var(--verde)' : '';
-  btn.style.color = editMode ? '#fff' : '';
-  btn.style.borderColor = editMode ? 'var(--verde)' : '';
-  addBtn.style.display = editMode ? 'inline-block' : 'none';
-  hint.style.display = editMode ? 'inline' : 'none';
-  delHeader.style.display = editMode ? 'table-cell' : 'none';
-  buildTable();
-}
- 
-function cycleValue(rowId, field) {
-  const row = TASK_ROWS.find(r => r.id === rowId);
-  if (!row) return;
-  const order = ['—', 'R', 'C'];
-  const idx = order.indexOf(row[field]);
-  row[field] = order[(idx + 1) % order.length];
-  buildTable();
-}
- 
-function deleteRow(rowId) {
-  const row = TASK_ROWS.find(r => r.id === rowId);
-  if (!row) return;
-  if (!confirm(`¿Eliminar la tarea "${row.tarea}"?`)) return;
-  const idx = TASK_ROWS.findIndex(r => r.id === rowId);
-  // If this row started a new area block, pass the area-start flag to the next row of same area
-  if (row.isNewArea) {
-    const next = TASK_ROWS[idx + 1];
-    if (next && next.area === row.area) next.isNewArea = true;
+  function init(){
+    // Build rows from TAREAS
+    let lastArea = null, id = 0;
+    TAREAS.forEach(function(r){
+      const a = r[0] || lastArea;
+      if (r[0]) lastArea = r[0];
+      rows.push({id:id++, area:a, isNew:!!r[0], tarea:r[1], cen:r[2]||'—', gn:r[3]||'—', csc:r[4]||'—', plt:r[5]||'—', nota:r[6]||''});
+    });
+    // Load saved overrides
+    try {
+      const raw = localStorage.getItem(SKEY);
+      if (raw) rows = JSON.parse(raw);
+    } catch(e){}
+    render();
   }
-  TASK_ROWS.splice(idx, 1);
-  buildTable();
-}
  
-function openAddTaskForm() {
-  const sel = document.getElementById('newTaskArea');
-  sel.innerHTML = Object.keys(AREA_COLORS).map(a => `<option value="${a}">${a}</option>`).join('');
-  document.getElementById('newTaskName').value = '';
-  document.getElementById('newTaskNote').value = '';
-  document.getElementById('newTaskCen').value = '—';
-  document.getElementById('newTaskGN').value = '—';
-  document.getElementById('newTaskCSC').value = '—';
-  document.getElementById('newTaskPlt').value = '—';
-  document.getElementById('addTaskPanel').style.display = 'block';
-}
-function closeAddTaskForm() {
-  document.getElementById('addTaskPanel').style.display = 'none';
-}
-function confirmAddTask() {
-  const area = document.getElementById('newTaskArea').value;
-  const tarea = document.getElementById('newTaskName').value.trim();
-  if (!tarea) { alert('Indica el nombre de la tarea.'); return; }
-  const cen = document.getElementById('newTaskCen').value;
-  const gn = document.getElementById('newTaskGN').value;
-  const csc = document.getElementById('newTaskCSC').value;
-  const plt = document.getElementById('newTaskPlt').value;
-  const nota = document.getElementById('newTaskNote').value.trim();
-  const maxId = TASK_ROWS.reduce((m, r) => Math.max(m, r.id), 0);
-  // Append at the end of the area's existing block, or create a new block at the end
-  let insertAt = TASK_ROWS.length;
-  for (let i = TASK_ROWS.length - 1; i >= 0; i--) {
-    if (TASK_ROWS[i].area === area) { insertAt = i + 1; break; }
+  function filter(a, btn){
+    flush();
+    areaFilter = a;
+    document.querySelectorAll('#tz-filters .tz-btn').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    render();
   }
-  const hasAreaAlready = TASK_ROWS.some(r => r.area === area);
-  TASK_ROWS.splice(insertAt, 0, { id: maxId + 1, area, isNewArea: !hasAreaAlready, tarea, cen, gn, csc, plt, nota });
-  closeAddTaskForm();
-  buildTable();
-}
  
-function updateNota(rowId, val) {
-  const row = TASK_ROWS.find(r => r.id === rowId);
-  if (row) row.nota = val;
-}
-function updateTarea(rowId, val) {
-  const row = TASK_ROWS.find(r => r.id === rowId);
-  if (row) row.tarea = val;
-}
-function buildTable() {
-  const tbody = document.getElementById('tasksBody');
-  tbody.innerHTML = '';
-  let count = 0;
-  TASK_ROWS.forEach(row => {
-    const areaMatch = currentArea === 'all' || row.area.toUpperCase().includes(currentArea);
-    const searchMatch = !currentSearch || row.tarea.toLowerCase().includes(currentSearch) || row.area.toLowerCase().includes(currentSearch);
-    if (!areaMatch || !searchMatch) return;
-    if (row.isNewArea) {
-      const col = AREA_COLORS[row.area] || '#333';
-      const tr = document.createElement('tr');
-      tr.className = 'area-row';
-      tr.innerHTML = `<td colspan="${editMode ? 7 : 6}" style="background:${col}">${row.area}</td>`;
-      tbody.appendChild(tr);
+  function doSearch(v){ flush(); searchStr = v.toLowerCase(); render(); }
+ 
+  function toggleEdit(){
+    flush();
+    editMode = !editMode;
+    const btn = document.getElementById('tz-edit-btn');
+    const addBtn = document.getElementById('tz-add-btn');
+    const hint = document.getElementById('tz-hint');
+    const delTh = document.getElementById('tz-del-th');
+    if (editMode) {
+      btn.textContent = '✅ Terminar edición'; btn.classList.add('on');
+      if (addBtn) addBtn.style.display = 'inline-block';
+      if (hint) hint.style.display = 'inline';
+      if (delTh) delTh.style.display = 'table-cell';
+    } else {
+      btn.textContent = '✏️ Activar edición'; btn.classList.remove('on');
+      if (addBtn) addBtn.style.display = 'none';
+      if (hint) hint.style.display = 'none';
+      if (delTh) delTh.style.display = 'none';
     }
-    count++;
-    const tr = document.createElement('tr');
-    tr.className = 'task-row';
-    const delCell = editMode ? `<td style="text-align:center"><button onclick="deleteRow(${row.id})" title="Eliminar tarea" style="background:none;border:none;cursor:pointer;font-size:.9rem;opacity:.6" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.6">🗑️</button></td>` : '';
-    const tareaCell = editMode
-      ? `<td style="font-size:.77rem;line-height:1.4;padding:.3rem .5rem"><input value="${row.tarea.replace(/"/g,'&quot;')}" onchange="updateTarea(${row.id},this.value)" style="width:100%;font-size:.77rem;border:1px solid var(--gris2);border-radius:5px;padding:.25rem .4rem;font-family:inherit;background:#fff;outline:none"></td>`
-      : `<td style="font-size:.77rem;line-height:1.4">${row.tarea}</td>`;
-    tr.innerHTML = `${tareaCell}${rc(row.cen, row.id, 'cen')}${rc(row.gn, row.id, 'gn')}${rc(row.csc, row.id, 'csc')}${rc(row.plt, row.id, 'plt')}${nota(row.nota, row.id)}${delCell}`;
-    tbody.appendChild(tr);
-  });
-  document.getElementById('rowCount').textContent = `${count} tarea${count !== 1 ? 's' : ''}${currentSearch ? ' encontrada' + (count !== 1 ? 's' : '') : ''}${editMode ? ' · modo edición activo' : ''}`;
-}
-function rc(v, rowId, field) {
-  const cls = v === 'R' ? 'R' : v === 'C' ? 'C' : 'none';
-  const label = v || '—';
-  if (editMode) {
-    return `<td class="td-rc ${cls}" style="cursor:pointer" onclick="cycleValue(${rowId},'${field}')" title="Clic para cambiar">${label}</td>`;
+    render();
   }
-  return `<td class="td-rc ${cls}">${label}</td>`;
-}
-function nota(text, rowId) {
-  if (editMode) {
-    const safe = (text || '').replace(/"/g, '&quot;');
-    return `<td style="padding:.3rem .5rem"><input value="${safe}" onchange="updateNota(${rowId},this.value)" style="width:100%;font-size:.72rem;color:#444;border:1px solid var(--gris2);border-radius:5px;padding:.25rem .4rem;font-family:inherit;background:#fff;outline:none" onblur="updateNota(${rowId},this.value)" placeholder="Añadir nota..."></td>`;
+ 
+  function flush(){
+    document.querySelectorAll('#tz-body input[data-rid]').forEach(inp => {
+      const row = rows.find(r => r.id === +inp.dataset.rid);
+      if (row) row[inp.dataset.field] = inp.value;
+    });
   }
-  return `<td style="font-size:.7rem;color:#888;line-height:1.4">${text || ''}</td>`;
-}
-// ── EDITOR GLOBAL ────────────────────────────────────────────────
-const STORAGE_KEY = 'dygp_edits_v1';
-const EDITABLE_SELECTOR = 'p, h1, h2, h3, li, td, th, .card-title, .card-body, .callout, .veredicto-body, .ver-step, .arg-body p, .arg-body strong, .nivel-desc, .nivel-name, .nivel-role, .section-sub, .hero-sub, .ev-b, .ev-t, .px-t, .eje-b, .eje-t, .kpi-l, .kpi-d, .sa-mis, .sa-name, .eq-emp, .eq-row, .pc-box li, .desc-body, .score-table td, .score-table th';
+ 
+  function render(){
+    const tbody = document.getElementById('tz-body');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    let count = 0;
+ 
+    rows.forEach(function(row){
+      const am = areaFilter === 'all' || row.area.toUpperCase().includes(areaFilter);
+      const sm = !searchStr || row.tarea.toLowerCase().includes(searchStr) || row.area.toLowerCase().includes(searchStr);
+      if (!am || !sm) return;
+ 
+      if (row.isNew) {
+        const hr = document.createElement('tr');
+        hr.className = 'area-row';
+        const td = document.createElement('td');
+        td.colSpan = editMode ? 7 : 6;
+        td.style.background = AREA_COLORS[row.area] || '#333';
+        td.textContent = row.area;
+        hr.appendChild(td);
+        tbody.appendChild(hr);
+      }
+ 
+      count++;
+      const tr = document.createElement('tr');
+      tr.className = 'task-row';
+ 
+      if (editMode) {
+        // Tarea name
+        const td0 = document.createElement('td');
+        const i0 = document.createElement('input');
+        i0.className = 'ti'; i0.value = row.tarea;
+        i0.dataset.rid = row.id; i0.dataset.field = 'tarea';
+        i0.oninput = function(e){ const r=rows.find(r=>r.id===row.id); if(r) r.tarea=e.target.value; };
+        td0.appendChild(i0); tr.appendChild(td0);
+ 
+        // RC cycling cells
+        ['cen','gn','csc','plt'].forEach(function(f){
+          const td = document.createElement('td');
+          td.className = 'rc ' + (CLS[row[f]]||'N') + ' editable';
+          td.textContent = row[f] || '—';
+          (function(field, cell, rowRef){
+            cell.onclick = function(){
+              const idx = CYCLE.indexOf(rowRef[field]||'—');
+              rowRef[field] = CYCLE[(idx+1) % CYCLE.length];
+              cell.textContent = rowRef[field];
+              cell.className = 'rc ' + (CLS[rowRef[field]]||'N') + ' editable';
+            };
+          })(f, td, row);
+          tr.appendChild(td);
+        });
+ 
+        // Nota
+        const td5 = document.createElement('td');
+        const i5 = document.createElement('input');
+        i5.className = 'ni'; i5.value = row.nota; i5.placeholder = 'Añadir nota...';
+        i5.dataset.rid = row.id; i5.dataset.field = 'nota';
+        i5.oninput = function(e){ const r=rows.find(r=>r.id===row.id); if(r) r.nota=e.target.value; };
+        td5.appendChild(i5); tr.appendChild(td5);
+ 
+        // Delete
+        const td6 = document.createElement('td'); td6.style.textAlign = 'center';
+        const b = document.createElement('button');
+        b.className = 'del'; b.textContent = '🗑️';
+        (function(rid){ b.onclick = function(){ delRow(rid); }; })(row.id);
+        td6.appendChild(b); tr.appendChild(td6);
+ 
+      } else {
+        const td0 = document.createElement('td');
+        td0.style.cssText = 'font-size:.77rem;line-height:1.4'; td0.textContent = row.tarea;
+        tr.appendChild(td0);
+        ['cen','gn','csc','plt'].forEach(function(f){
+          const td = document.createElement('td');
+          td.className = 'rc ' + (CLS[row[f]]||'N');
+          td.textContent = row[f] || '—'; tr.appendChild(td);
+        });
+        const td5 = document.createElement('td');
+        td5.style.cssText = 'font-size:.71rem;color:#888;line-height:1.45'; td5.textContent = row.nota;
+        tr.appendChild(td5);
+      }
+      tbody.appendChild(tr);
+    });
+ 
+    const el = document.getElementById('tz-count');
+    if (el) el.textContent = count + ' tarea' + (count!==1?'s':'') +
+      (searchStr ? ' encontrada' + (count!==1?'s':'') : '') +
+      (editMode ? ' · modo edición — clic en R/C/— para cambiar' : '');
+  }
+ 
+  function delRow(id){
+    flush();
+    const idx = rows.findIndex(r => r.id === id);
+    if (idx < 0) return;
+    if (!confirm('¿Eliminar "' + rows[idx].tarea + '"?')) return;
+    if (rows[idx].isNew){ const n=rows[idx+1]; if(n&&n.area===rows[idx].area) n.isNew=true; }
+    rows.splice(idx, 1);
+    render();
+  }
+ 
+  function openAdd(){
+    const sel = document.getElementById('tz-a-area');
+    if (!sel) return;
+    sel.innerHTML = Object.keys(AREA_COLORS).map(a => '<option value="'+a+'">'+a+'</option>').join('');
+    ['tz-a-name','tz-a-nota'].forEach(id => { const e=document.getElementById(id); if(e) e.value=''; });
+    ['tz-a-cen','tz-a-gn','tz-a-csc','tz-a-plt'].forEach(id => { const e=document.getElementById(id); if(e) e.value='—'; });
+    document.getElementById('tz-add-panel').style.display = 'block';
+  }
+  function closeAdd(){ document.getElementById('tz-add-panel').style.display = 'none'; }
+ 
+  function confirmAdd(){
+    const a = document.getElementById('tz-a-area').value;
+    const t = (document.getElementById('tz-a-name').value||'').trim();
+    if (!t) { alert('Indica el nombre de la tarea.'); return; }
+    const cen = document.getElementById('tz-a-cen').value;
+    const gn  = document.getElementById('tz-a-gn').value;
+    const csc = document.getElementById('tz-a-csc').value;
+    const plt = document.getElementById('tz-a-plt').value;
+    const nota = (document.getElementById('tz-a-nota').value||'').trim();
+    const maxId = rows.reduce((m,r) => Math.max(m,r.id), 0);
+    let at = rows.length;
+    for (let i=rows.length-1; i>=0; i--){ if(rows[i].area===a){ at=i+1; break; } }
+    const hasArea = rows.some(r => r.area===a);
+    rows.splice(at, 0, {id:maxId+1, area:a, isNew:!hasArea, tarea:t, cen, gn, csc, plt, nota});
+    closeAdd(); render();
+  }
+ 
+  function save(){
+    flush();
+    try {
+      localStorage.setItem(SKEY, JSON.stringify(rows));
+      const btn = document.getElementById('tz-save-btn');
+      if (btn){ const orig=btn.textContent; btn.textContent='✅ Guardado'; btn.style.background='#27AE60'; btn.style.color='#fff'; setTimeout(()=>{ btn.textContent=orig; btn.style.background=''; btn.style.color=''; },2000); }
+    } catch(e){ alert('Error al guardar: '+e.message); }
+  }
+ 
+  function reset(){
+    if (!confirm('¿Descartar todos los cambios de la tabla y volver a los datos originales?')) return;
+    localStorage.removeItem(SKEY);
+    location.reload();
+  }
+ 
+  return { init, filter, search:doSearch, toggleEdit, openAdd, closeAdd, confirmAdd, save, reset };
+})();
+ 
+// ══════════════════════════════════════════════════════════════
+// EDITOR DE TEXTO (negrita, tachado, subrayador)
+// ══════════════════════════════════════════════════════════════
+const ESKEY = 'dygp_editor_v1';
 let editActive = false;
  
-function toggleEdit() {
+function toggleEdit(){
   editActive = !editActive;
-  const bar = document.getElementById('editor-bar');
   const btn = document.getElementById('eb-toggle');
-  if (editActive) {
-    enableEditable();
-    btn.textContent = '🔒 Cerrar edición';
-    btn.classList.add('on');
-    document.getElementById('eb-mode-label').style.color = '#FDE68A';
-  } else {
-    disableEditable();
-    btn.textContent = '✏️ Activar edición';
-    btn.classList.remove('on');
-    document.getElementById('eb-mode-label').style.color = 'rgba(255,255,255,.55)';
-  }
-}
- 
-function enableEditable() {
-  document.querySelectorAll(EDITABLE_SELECTOR).forEach((el, i) => {
-    if (el.closest('#editor-bar') || el.closest('script') || el.closest('style')) return;
-    if (el.closest('.tasks-table')) return; // tasks have their own editor
-    if (!el.dataset.eid) el.dataset.eid = 'e' + i;
-    el.contentEditable = 'true';
+  const hint = document.getElementById('eb-hint');
+  document.querySelectorAll('.tab-panel .content, .hero-inner').forEach((el,i) => {
+    if (el.closest('#tab-tareas')) return; // tasks tab excluded
+    if (!el.dataset.eid) el.dataset.eid = 'r' + i;
+    el.contentEditable = editActive ? 'true' : 'false';
     el.spellcheck = false;
   });
-}
- 
-function disableEditable() {
-  document.querySelectorAll('[contenteditable=true]').forEach(el => {
-    el.contentEditable = 'false';
-  });
-}
- 
-function fmt(cmd) {
-  document.execCommand(cmd, false, null);
-}
- 
-function fmtHL() {
-  const sel = window.getSelection();
-  if (!sel || sel.isCollapsed) return;
-  const range = sel.getRangeAt(0);
-  const mark = document.createElement('mark');
-  mark.className = 'hl';
-  try { range.surroundContents(mark); } catch(e) {
-    const frag = range.extractContents();
-    mark.appendChild(frag);
-    range.insertNode(mark);
+  if (editActive){
+    btn.textContent = '🔒 Cerrar edición'; btn.classList.add('on');
+    if (hint) hint.style.display = 'inline';
+  } else {
+    btn.textContent = '✏️ Activar edición'; btn.classList.remove('on');
+    if (hint) hint.style.display = 'none';
   }
+}
+ 
+function fmt(cmd){ document.execCommand(cmd, false, null); }
+ 
+function fmtHL(){
+  const sel = window.getSelection();
+  if (!sel||!sel.rangeCount||sel.isCollapsed) return;
+  const range = sel.getRangeAt(0);
+  const mark = document.createElement('mark'); mark.className='hl';
+  try { range.surroundContents(mark); }
+  catch(e){ const f=range.extractContents(); mark.appendChild(f); range.insertNode(mark); }
   sel.removeAllRanges();
 }
  
-function fmtRemove() {
-  // Remove bold, strike and highlight from selection
+function fmtRemove(){
   document.execCommand('removeFormat', false, null);
   const sel = window.getSelection();
-  if (!sel || sel.isCollapsed) return;
-  const range = sel.getRangeAt(0);
-  const ancestor = range.commonAncestorContainer.parentElement;
-  ancestor.querySelectorAll('mark.hl').forEach(m => {
-    const parent = m.parentNode;
-    while (m.firstChild) parent.insertBefore(m.firstChild, m);
-    parent.removeChild(m);
-  });
+  if (!sel||!sel.rangeCount) return;
+  const c = sel.getRangeAt(0).commonAncestorContainer;
+  const p = c.nodeType===1 ? c : c.parentElement;
+  p.querySelectorAll('mark.hl').forEach(m => { const p=m.parentNode; while(m.firstChild) p.insertBefore(m.firstChild,m); p.removeChild(m); });
 }
  
-function saveAll() {
+function saveAll(){
   const data = {};
-  // Save general editable content
-  document.querySelectorAll('[data-eid]').forEach(el => {
+  document.querySelectorAll('.tab-panel .content, .hero-inner').forEach((el,i) => {
+    if (el.closest('#tab-tareas')) return;
+    if (!el.dataset.eid) el.dataset.eid = 'r' + i;
     data[el.dataset.eid] = el.innerHTML;
   });
-  // Save task rows
-  data['__TASK_ROWS__'] = JSON.stringify(TASK_ROWS);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  const btn = document.getElementById('eb-save');
-  btn.textContent = '✅ Guardado';
-  btn.classList.add('save-ok');
-  setTimeout(() => { btn.textContent = '💾 Guardar'; btn.classList.remove('save-ok'); }, 2000);
+  try {
+    localStorage.setItem(ESKEY, JSON.stringify(data));
+    const btn = document.getElementById('eb-save');
+    if (btn){ const t=btn.textContent; btn.textContent='✅ Guardado'; btn.style.background='#27AE60'; btn.style.color='#fff'; setTimeout(()=>{ btn.textContent=t; btn.style.background=''; btn.style.color=''; },2000); }
+  } catch(e){ alert('Error al guardar: '+e.message); }
 }
  
-function resetAll() {
-  if (!confirm('¿Descartar todos los cambios guardados y volver al original?')) return;
-  localStorage.removeItem(STORAGE_KEY);
+function resetAll(){
+  if (!confirm('¿Descartar todos los cambios del texto y volver al original?')) return;
+  localStorage.removeItem(ESKEY);
   location.reload();
 }
  
-function loadSaved() {
-  const raw = localStorage.getItem(STORAGE_KEY);
+function loadEditorSaved(){
+  const raw = localStorage.getItem(ESKEY);
   if (!raw) return;
   try {
     const data = JSON.parse(raw);
-    // Restore task rows
-    if (data['__TASK_ROWS__']) {
-      TASK_ROWS = JSON.parse(data['__TASK_ROWS__']);
-      buildTable();
-    }
-    // Restore editable content — assign eids first, then restore
-    document.querySelectorAll(EDITABLE_SELECTOR).forEach((el, i) => {
-      if (el.closest('#editor-bar') || el.closest('.tasks-table')) return;
-      if (!el.dataset.eid) el.dataset.eid = 'e' + i;
-      if (data[el.dataset.eid] !== undefined) el.innerHTML = data[el.dataset.eid];
+    document.querySelectorAll('.tab-panel .content, .hero-inner').forEach((el,i) => {
+      if (el.closest('#tab-tareas')) return;
+      if (!el.dataset.eid) el.dataset.eid = 'r' + i;
+      if (data[el.dataset.eid]) el.innerHTML = data[el.dataset.eid];
     });
-  } catch(e) { console.warn('Error loading saved data', e); }
+  } catch(e){ console.warn('loadEditorSaved error',e); }
 }
  
-// Show toolbar always, allow activating from it
-document.getElementById('editor-bar').classList.remove('hidden');
- 
-// Keyboard shortcuts
 document.addEventListener('keydown', e => {
-  if (!editActive) return;
-  if (e.ctrlKey || e.metaKey) {
-    if (e.key === 's') { e.preventDefault(); saveAll(); }
-    if (e.key === 'b') { e.preventDefault(); fmt('bold'); }
-  }
+  if ((e.ctrlKey||e.metaKey) && e.key==='s'){ e.preventDefault(); saveAll(); }
+  if ((e.ctrlKey||e.metaKey) && e.key==='b' && editActive){ e.preventDefault(); fmt('bold'); }
 });
  
-// Load saved data after everything is rendered
-setTimeout(loadSaved, 100);
+// ══════════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════════
+document.getElementById('editor-bar').classList.remove('hidden');
+TZ.init();
+loadEditorSaved();
  
-buildTable();
 </script>
+ 
 </body></html>
  
